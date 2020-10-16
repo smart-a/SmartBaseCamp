@@ -17,11 +17,11 @@ require("channels")
 // const imagePath = (name) => images(name, true)
 
 //= require jquery
-//= require jquery-ujs
-//= require bootstrap
+//= require jquery_ujs
+// require bootstrap-sprockets
 //= require popper
+//= require bootstrap
 //= require_tree .
-//= require_self
 
 var jQuery = require("jquery");
 

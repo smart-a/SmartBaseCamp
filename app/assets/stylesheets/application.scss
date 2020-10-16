@@ -15,9 +15,36 @@
  *= require_self
  */
 
+ //@import 'bootstrap-sprockets';
  @import 'bootstrap';
- @import 'font-awesome';
+ @import "font-awesome";
+
+
+ .brand{
+    font-size: 1.7rem;
+    letter-spacing: -1px;
+    font-weight: bold;
+    padding: 0;
+}
+.nav-link{
+    font-size: 0.9rem;
+}
+
+a.btn:visited {
+    color: white;
+}
+
+@media (max-width: 768px) {
+    .brand{
+        font-size: 1.2rem;
+        letter-spacing: -1px;
+        font-weight: bold;
+        padding: 0;
+    }
+}
+
 
  a.btn:visited{
      color: white;
  }
+
