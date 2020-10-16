@@ -15,3 +15,20 @@ require("channels")
 //
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
+
+//= require jquery
+//= require jquery-ujs
+//= require bootstrap
+//= require popper
+//= require_tree .
+//= require_self
+
+var jQuery = require("jquery");
+
+global.$ = global.jquery =  jQuery;
+window.$ = window.jquery = jQuery;
+
+$(function(){
+    alert('here');
+    $('[data-toggle="tooltip"]').tooltip();
+});
