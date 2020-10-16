@@ -1,9 +1,8 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.6.6'
+ruby '2.7.1'
 
-# gem 'bootstrap-sass', '~> 3.3.5'  # '~> 3.4.1'
 gem 'bootstrap', '~> 4.5.2'
 gem 'jquery-rails', '~> 4.4.0'
 gem 'carrierwave', '~> 2.1.0'

@@ -19,6 +19,7 @@
  @import 'bootstrap';
  @import "font-awesome";
 
+
  .brand{
     font-size: 1.7rem;
     letter-spacing: -1px;
@@ -41,3 +42,9 @@ a.btn:visited {
         padding: 0;
     }
 }
+
+
+ a.btn:visited{
+     color: white;
+ }
+

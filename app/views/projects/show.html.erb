@@ -1,29 +1,38 @@
-<p id="notice"><%= notice %></p>
 
-<p>
-  <strong>User:</strong>
-  <%= @project.user_id %>
-</p>
+<div class="page-header">
+ <h3><%= @project.title %></h3>
+</div>
 
-<p>
-  <strong>Title:</strong>
-  <%= @project.title %>
-</p>
+<dl>
+  <dt><strong>Title:</strong></dt>
+  <dd><%= @project.title %></dd>
+  <dt><strong>Description:</strong></dt>
+  <dd><%= @project.description %></dd>
+  <dt><strong>Expected completion date:</strong></dt>
+  <dd><%= Date.parse(@project.exp_completion_date.to_s, '%Y-%m-%d') %></dd>
+  <dt><strong>Completion date:</strong></dt>
+  <dd><%= Date.parse(@project.completion_date.to_s, '%Y-%m-%d') %></dd>
+</dl>
+<div>
+  <dl>
+  <dt><strong>Project Users:</strong></dt>
+  <dd>
+    
+  </dd>
+</dl>
+</div>
+<div class="projects-actions">
+  <%= link_to projects_path, class: "btn btn-warning", 'data-toggle'=>"tooltip", 'data-placement'=>"top", title:"Back to project list" do %>
+    <i class="fa fa-arrow-left"></i>
+  <% end %>
+  <%= link_to edit_project_path(@project), class: "btn btn-primary" do %> 
+    <i class="fa fa-edit"></i>
+  <% end %>
+  <%= link_to  projects_path, class: "btn btn-secondary" do %> 
+    <i class="fa fa-paperclip"></i>
+  <% end %>
+  <%= link_to projects_path, class: "btn btn-success" do %>
+    <i class="fa fa-user"></i>
+  <% end %>
 
-<p>
-  <strong>Description:</strong>
-  <%= @project.description %>
-</p>
-
-<p>
-  <strong>Exp completion date:</strong>
-  <%= @project.exp_completion_date %>
-</p>
-
-<p>
-  <strong>Completion date:</strong>
-  <%= @project.completion_date %>
-</p>
-
-<%= link_to 'Edit', edit_project_path(@project) %> |
-<%= link_to 'Back', projects_path %>
+</div>

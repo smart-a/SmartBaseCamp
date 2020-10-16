@@ -2,5 +2,9 @@
 
 <%= render 'form', project: @project %>
 
-<%= link_to 'Show', @project %> |
-<%= link_to 'Back', projects_path %>
+<%= link_to projects_path, class: "btn btn-secondary", 'data-toggle'=>"tooltip", 'data-placement'=>"top", title:"Back to project list" do %>
+    <i class="fa fa-arrow-left"></i>
+<% end %>
+ <%= link_to @project, class: "btn btn-primary", 'data-toggle'=>"tooltip", 'data-placement'=>"top", title:"Back to project list" do %>
+    <i class="fa fa-eye"></i>
+  <% end %>

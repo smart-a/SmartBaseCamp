@@ -22,3 +22,13 @@ require("channels")
 //= require popper
 //= require bootstrap
 //= require_tree .
+
+var jQuery = require("jquery");
+
+global.$ = global.jquery =  jQuery;
+window.$ = window.jquery = jQuery;
+
+$(function(){
+    alert('here');
+    $('[data-toggle="tooltip"]').tooltip();
+});
