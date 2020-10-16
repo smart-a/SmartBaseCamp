@@ -1,11 +1,13 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.6.6'
+ruby '2.7.1'
 
-gem 'bootstrap-sass', '~> 3.4.1'
+#gem 'bootstrap-sass', '~> 3.4.1'
+gem 'bootstrap', '~> 4.5.2'
 gem 'jquery-rails', '~> 4.4.0'
 gem 'carrierwave', '~> 2.1.0'
+gem 'font-awesome-rails'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.3', '>= 6.0.3.4'
