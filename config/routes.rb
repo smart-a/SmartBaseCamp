@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   
   root 'users#home'
   
-  resources :users
+ 
   get 'users/login'
   post 'users/signin', to: 'users#signin'
   
@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get 'user/logout'
   get 'user/set_user'
   post 'user/update'
+  resources :users
 
   resources :projects
   
