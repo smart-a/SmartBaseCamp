@@ -1,5 +1,8 @@
 class ProjectsController < ApplicationController
+  before_action :set_session
   before_action :set_project, only: [:show, :edit, :update, :destroy]
+
+  require 'date'
 
   # GET /projects
   # GET /projects.json
@@ -10,15 +13,17 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.json
   def show
+    @project = Project.find(params[:id])
   end
 
   # GET /projects/new
   def new
     @project = Project.new
   end
-
+ 
   # GET /projects/1/edit
   def edit
+    @project = Project.find(params[:id])
   end
 
   # POST /projects
@@ -40,6 +45,7 @@ class ProjectsController < ApplicationController
   # PATCH/PUT /projects/1
   # PATCH/PUT /projects/1.json
   def update
+    @project = Project.find(params[:id])
     respond_to do |format|
       if @project.update(project_params)
         format.html { redirect_to @project, notice: 'Project was successfully updated.' }
@@ -70,5 +76,10 @@ class ProjectsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def project_params
       params.require(:project).permit(:user_id, :title, :description, :exp_completion_date, :completion_date)
+    end
+
+    # Set session
+    def set_session
+      @user_session = session['user']
     end
 end
