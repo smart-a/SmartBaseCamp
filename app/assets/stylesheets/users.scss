@@ -1,4 +1,28 @@
-	/* Coded with love by Mutiullah Samim */
+// Place all the styles related to the Users controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+
+.jumbotron{
+    margin-top: 20px;
+    background-image: asset-url('landing_page.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 400px;
+}
+
+.jumbotron h1{
+    margin-top: 70px;
+    font-weight: bold;
+    letter-spacing: -1px;
+}
+
+.center{
+    text-align: center;
+}
+
+
+/* Coded with love by Mutiullah Samim */
 	body,
 	html {
 		margin: 0;
@@ -68,3 +92,18 @@
 	.custom-checkbox .custom-control-input:checked~.custom-control-label::before {
 		background-color: #c0392b !important;
 	}
+
+
+@media (max-width: 768px){
+    .jumbotron{
+        background-size: cover;
+        height: 110px;
+    }
+    
+    .jumbotron h1{
+        font-size: 1.5rem;
+        margin-top: 0px;
+    }
+}
+
+
