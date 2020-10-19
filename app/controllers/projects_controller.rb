@@ -1,4 +1,5 @@
 class ProjectsController < ApplicationController
+  before_action :set_session
   before_action :set_project, only: [:show, :edit, :update, :destroy]
 
   require 'date'
@@ -75,5 +76,10 @@ class ProjectsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def project_params
       params.require(:project).permit(:user_id, :title, :description, :exp_completion_date, :completion_date)
+    end
+
+    # Set session
+    def set_session
+      @user_session = session['user']
     end
 end
