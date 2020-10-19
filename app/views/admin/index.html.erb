@@ -1,25 +1,69 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Admins</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @admins.each do |admin| %>
-      <tr>
-        <td><%= link_to 'Show', admin %></td>
-        <td><%= link_to 'Edit', edit_admin_path(admin) %></td>
-        <td><%= link_to 'Destroy', admin, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Admin', new_admin_path %>
+<div class="container mt-5">
+      <!-- Example row of columns 
+      <div class="row" id="row">
+        <div class="col-md-4">
+          <h2>Users' Actions</h2>
+          <p>
+            <ul>
+              <li>View all users</li>
+              <li>Add new user</li>
+              <li>Set user role</li>
+              <li>Delete user</li>
+            </ul>
+          </p>
+          <p><a class="btn btn-primary" href="#" role="button">Users »</a></p>
+        </div>
+        <div class="col-md-4">
+          <h2>Projects' Actions</h2>
+          <p>
+            <ul>
+              <li>View all projects</li>
+              <li>Add thread to projects</li>
+              <li>Add message to a thread</li>
+              <li>Delete threads</li>
+              <li>Delete message</li>
+            </ul>
+          </p>
+          <p><a class="btn btn-primary" href="#" role="button">Projects »</a></p>
+       </div>
+      </div>
+-->
+      <%= link_to 'admin/new_user', class:'btn btn-primary float-right mb-2' do %>
+        <i class="fa fa-plus"></i> New User
+      <% end %>
+      <table class="table table-sm table-striped">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Firstname</th>
+            <th scope="col">Lastname</th>
+            <th scope="col">Email</th>
+            <th scope="col">User Role</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% sn = 1
+            @users.each do |u| %>
+            <tr>
+              <th scope="row"><%= sn %></th>
+              <td><%= u.firstname %></td>
+              <td><%= u.lastname %></td>
+              <td><%= u.email %></td>
+              <td><%= u.user_role %></td>
+              <td>
+                <%= link_to edit_admin_path(u.id), class:'btn btn-sm btn-primary' do %>
+                  <i class="fa fa-edit"></i>
+                <% end %>
+                
+                <%= link_to u, class:'btn btn-sm btn-danger', method: :delete, confirm: 'Delete?','data-message' => 'Are you sure?', 'data-severity' => 'danger', :remote => true do %>
+                  <i class="fa fa-trash"></i>
+                <% end %>
+              </td>
+              
+            </tr>
+          <% sn +=1
+          end %>
+        </tbody>
+      </table>
+    </div> <!-- /container -->

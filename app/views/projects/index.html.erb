@@ -1,35 +1,40 @@
-<p id="notice"><%= notice %></p>
+
+<% if !notice.nil? %>
+  <div id="notice" class="alert alert-info mt-4 alert-dismissible">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <%= notice %>
+  </div>
+<% end %>
 
 <h1>Projects</h1>
-
-<table>
-  <thead>
+<%= link_to new_project_path,class: 'btn btn-primary float-right mb-2' do %>
+  <i class="fa fa-plus"></i> New Project
+<% end %>
+<table class="table table-sm table-striped">
+  <thead class="thead-dark">
     <tr>
-      <th>User</th>
       <th>Title</th>
       <th>Description</th>
-      <th>Exp completion date</th>
-      <th>Completion date</th>
-      <th colspan="3"></th>
+      <th>Expected completion date</th>
+      <th></th>
     </tr>
   </thead>
 
   <tbody>
     <% @projects.each do |project| %>
       <tr>
-        <td><%= project.user_id %></td>
-        <td><%= project.title %></td>
-        <td><%= project.description %></td>
-        <td><%= project.exp_completion_date %></td>
-        <td><%= project.completion_date %></td>
-        <td><%= link_to 'Show', project %></td>
-        <td><%= link_to 'Edit', edit_project_path(project) %></td>
-        <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to project.title, project,class: '' %></td>
+        <td class="desc"><%= project.description %></td>
+        <td><%= Date.parse(project.exp_completion_date.to_s, '%Y-%m-%d') %></td>
+        <td>
+          <%= link_to edit_project_path(project),class: 'btn btn-sm btn-primary' do %>
+              <i class='fa fa-edit'></i>
+          <% end %>
+          <%= link_to project, method: :delete, data:{ confirm: 'Are you sure?' },class: 'btn btn-sm btn-danger' do %>
+              <i class='fa fa-trash'></i>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Project', new_project_path %>

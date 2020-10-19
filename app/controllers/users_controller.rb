@@ -1,5 +1,10 @@
 class UsersController < ApplicationController
+  before_action :set_session  
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+ 
+  def home
+    
+  end
 
   # GET /users
   # GET /users.json
@@ -70,5 +75,10 @@ class UsersController < ApplicationController
     # Only allow a list of trusted parameters through.
     def user_params
       params.require(:user).permit(:firstname, :lastname, :email, :password)
+    end
+
+    # Set session
+    def set_session
+      @user_session = session['user']
     end
 end
