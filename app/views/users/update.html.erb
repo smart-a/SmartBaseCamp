@@ -1,0 +1,51 @@
+<div class="main">
+
+        <!-- Sign up form -->
+        <section class="signup">
+            <div class="container">
+                <div class="signup-content">
+                    
+                    <div class="signup-form">
+                        <h2 class="form-title">Update Profile</h2>
+                        
+                        <% if !params[:notice].blank? %>
+                            <p>
+                                <div class="alert alert-info" role="alert">
+                                    <%= (params[:notice]=="1")? 'Profile updated' : 'Unable to update profile' %>
+                                </div>
+                            </p>
+                        <% end %>
+                        
+                        <%= form_for :users, url: {action:'update', id: @users}, class: 'register-form' do |f| %>
+                            <div class="form-group">
+                                <label for="users_fullname"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <%= f.text_field "fullname", :placeholder=>"Your Fullname" %>
+                            </div>
+                            <div class="form-group">
+                                <label for="users_email"><i class="zmdi zmdi-email"></i></label>
+                                <%= f.email_field "email", :placeholder=>"Your Email"  %>
+                            </div>
+                            <div class="form-group">
+                                <label for="users_password"><i class="zmdi zmdi-lock"></i></label>
+                                <%= f.password_field "password", value:'', :placeholder=>"Password" %>
+                            </div>
+                             <!-- Check password strength -->
+                            <div class="progress">
+                                <div id="progress" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <span id="strength"> </span>
+                            <!---->
+                            <div class="form-group form-button">
+                                <%= submit_tag "Update", :disabled=>'disabled', :class=>"form-submit bg-success users_submit disabled" %>
+                            </div>
+                            <div class="">
+                                <a href="dashboard" class="">Back</a>
+                            </div>
+                            
+                        <% end -%>
+                        
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
