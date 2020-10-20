@@ -14,6 +14,8 @@ class ProjectsController < ApplicationController
   # GET /projects/1.json
   def show
     @project = Project.find(params[:id])
+    @app_thread = AppThread.new
+    @app_threads = @project.app_threads
   end
 
   # GET /projects/new
@@ -81,5 +83,6 @@ class ProjectsController < ApplicationController
     # Set session
     def set_session
       @user_session = session['user']
+      @user_session = session['user'] = {firstname:'Adesoye', lastname:'Olalekan', email:'admin@smartbasecamp.com', user_role:'admin'}
     end
 end
