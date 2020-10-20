@@ -1,29 +1,35 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
-    <a class="navbar-brand" href="#">Welcome <small><%= @users[:firstname] %>!</small></a>
+    <a class="navbar-brand" href="#">Welcome,<%= @users['firstname'] %>!</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-          <a class="nav-item nav-link" href="set_user?id=<%= @users[:id] %>">My Profile</a>
-     
+         
+         <a class="btn btn-sm btn-secondary", href="show?id=<%= @users['id'] %>">My Profile</a>
+
         </div>
         <div class="navbar-nav ml-auto">
           <%= link_to  "Logout", root_path , class: "nav-item nav-link" %>
         </div>
     </div>
 </nav>
+
 <main>
   <div class="container my-5">
     <div class="card-body text-center">
       <h2 class="card-title m-0">Your Project List </h2>
     </div>
     <div class="p-3">
-      <a id="add__new__list" type="button" class="btn btn-success" href="../project">
+      <%
+=begin%>
+ <a id="add__new__list" type="button" class="btn btn-success" href="../project">
         Add Project
-      </a>
-      
+      </a> 
+<%
+=end%>
+      <%= link_to "Add Project", new_project_path, class: "btn btn-success"%>
       <table class="table table-hover">
           <thead>
             <tr>
@@ -73,4 +79,3 @@
     <!-- Large modal -->
   </div>
 </main>
-<!---->

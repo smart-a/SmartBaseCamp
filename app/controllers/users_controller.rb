@@ -3,7 +3,6 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
  
   def home
-    
   end
 
   # GET /users
@@ -62,7 +61,7 @@ def signin
   ActiveRecord::Base.connection.exec_query(
       "SELECT * FROM users WHERE email='#{email}' AND password='#{password}'"
   ).each do|row| 
-      result = {id: row['id'],fullname: row['fullname'],email: row['email'],user_role: row['user_role']}
+      result = {id: row['id'],firstname: row['firstname'], lastname: row['lastname'],email: row['email'],user_role: row['user_role']}
   end
   
   if !result.empty?
@@ -109,6 +108,9 @@ end
       end
     end
   end
+  def user_params
+    params.require(:user).permit(:firstname, :lastname, :email, :password)
+  end
 
   # DELETE /users/1
   # DELETE /users/1.json
@@ -127,9 +129,7 @@ end
     end
 
     # Only allow a list of trusted parameters through.
-    def user_params
-      params.require(:user).permit(:firstname, :lastname, :email, :password)
-    end
+    
 
     # Set session
     def set_session
