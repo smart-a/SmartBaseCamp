@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Project:</strong>
+  <%= @app_thread.project_id %>
+</p>
+
+<p>
+  <strong>Th content:</strong>
+  <%= @app_thread.th_content %>
+</p>
+
+<%= link_to 'Edit', edit_app_thread_path(@app_thread) %> |
+<%= link_to 'Back', app_threads_path %>

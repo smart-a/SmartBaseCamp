@@ -76,6 +76,6 @@ class AdminController < ApplicationController
      # Set session
      def set_session
       # @user_session = session['user']
-      @user_session = session['user'] = {email:'admin@smartbasecamp.com', user_role:'admin'}
+      @user_session = session['user'] = {firstname:'Adesoye', lastname:'Olalekan', email:'admin@smartbasecamp.com', user_role:'admin'}
     end
 end
