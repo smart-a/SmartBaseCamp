@@ -8,10 +8,16 @@ Rails.application.routes.draw do
   post 'users/signin', to: 'users#signin'
   
   get 'users/dashboard'
+  get '/users/show', to: 'users#show'
+  get 'users/set_user', to: 'users#set_user'
+  post 'users/update', to: 'user#update'
+  get 'users/dashboard'
+  get 'project', to: 'projects#new'
+
+  get '/users/:id/show', to: 'users#show'
   
   get 'user/logout'
-  get 'user/set_user'
-  post 'user/update'
+  
   resources :users
 
   resources :projects

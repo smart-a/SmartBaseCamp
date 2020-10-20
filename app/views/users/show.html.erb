@@ -1,5 +1,19 @@
+<h1>Your Profile Info!</h1>
 <p id="notice"><%= notice %></p>
 
+<dl>
+  <dt><strong>Firstname:</strong></dt>
+  <dd><%= @user.firstname %></dd>
+  <dt><strong>Lastname:</strong></dt>
+  <dd><%= @user.lastname %></dd>
+  <dt><strong>Email Address:</strong></dt>
+  <dd><%=@user.email %></dd>
+  <dt><strong>Password:</strong></dt>
+  <dd><%=@user.password %></dd>
+</dl>
+<%
+=begin%>
+ 
 <p>
   <strong>Firstname:</strong>
   <%= @user.firstname %>
@@ -18,7 +32,15 @@
 <p>
   <strong>Password:</strong>
   <%= @user.password %>
-</p>
+</p> 
+<%
+=end%>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<%= link_to projects_path , class: "btn btn-secondary" do %>
+      <i class='fa fa-arrow-left'></i>
+<% end %>
+<%= link_to edit_user_path(@user),   class: "btn btn-primary ml-3" do %>
+      <i class='fa fa-edit'></i>
+<% end %> 
+
+ 
