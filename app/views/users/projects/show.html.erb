@@ -1,3 +1,9 @@
+<% if !notice.nil? %>
+  <div id="notice" class="alert alert-info mt-4 alert-dismissible">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <%= notice %>
+  </div>
+<% end %>
 
 <div class="page-header">
  <h3><%= @project.title %></h3>
@@ -22,26 +28,26 @@
 </dl>
 </div>
 <div class="projects-actions">
-  <%= link_to projects_path, class: "btn btn-sm btn-warning", 'data-toggle'=>"tooltip", 'data-placement'=>"top", title:"Back to project list" do %>
+  <%= link_to user_projects_path(@user), class: "btn btn-sm btn-warning", 'data-toggle'=>"tooltip", 'data-placement'=>"top", title:"Back to project list" do %>
     <i class="fa fa-arrow-left"></i>
   <% end %>
-  <%= link_to edit_project_path(@project), class: "btn btn-sm btn-primary" do %> 
+  <%= link_to edit_user_project_path(@user,@project), class: "btn btn-sm btn-primary" do %> 
     <i class="fa fa-edit"></i>
   <% end %>
-  <%= link_to  projects_path, class: "btn btn-sm btn-secondary" do %> 
+  <%= link_to  user_projects_path(@user), class: "btn btn-sm btn-secondary" do %> 
     <i class="fa fa-paperclip"></i>
   <% end %>
-  <%= link_to projects_path, class: "btn btn-sm btn-success" do %>
+  <%= link_to user_projects_path(@user), class: "btn btn-sm btn-success" do %>
     <i class="fa fa-user"></i>
   <% end %>
 </div>
 
 <div class="container mt-5">
   <div class="">
-      <%= form_for [@project, @app_thread], method: :post do |f| %>
-        <div class="input-group">
-          <%= f.text_area :th_content, placeholder:'Add Thread', class:'form-control', size: "7x2" %>
-          <div class="input-append">
+      <%= form_for [@user, @project, @app_thread], method: :post do |f| %>
+        <div class="input-group col-3">
+          <%= f.text_field :th_content, placeholder:'Add Thread', class:'form-control form-control-sm', size: "7x2" %>
+          <div class="input-group-append">
               <%= f.button type:'submit', class:'btn btn-sm btn-outline-secondary align-self-end' do %>
                 <i class="fa fa-paper-plane"></i>
               <% end %>
@@ -54,8 +60,8 @@
     <% @app_threads.each do |thread| %>
       <%
           t_date = Date.parse(thread.created_at.to_s, '%MMM %dd, %Y')
-          user_init = @user_session[:firstname][0] + @user_session[:lastname][0]
-          user_fullname = @user_session[:firstname] + ' ' + @user_session[:lastname]
+          user_init = @user_session['firstname'][0] + @user_session['lastname'][0]
+          user_fullname = @user_session['firstname'] + ' ' + @user_session['lastname']
       %>
       <section id='<%= thread.id %>'>
         <%#= link_to thread.th_content, project_app_thread_path(@project,thread.id) %>
@@ -74,12 +80,17 @@
                /.direct-chat-img -->
                <div class="direct-chat-img"><%= user_init %></div>
               <div class="direct-chat-text">
-                <%= link_to thread.th_content, project_app_thread_path(@project.id,thread.id) %>
+                <%= link_to user_project_app_thread_path(@user,@project,thread) do %>
+                  <small><%= thread.th_content %></small>
+                <% end %>
                 <span class="d-flex pull-right">
-                  <%= link_to project_app_thread_path(@project.id,thread.id), class:'mr-2' do %>
-                      <i class="fa fa-comment"> <small>(2)</small></i>
+                  <%= link_to user_project_app_thread_path(@user,@project,thread), class:'mr-2' do %>
+                      <i class="fa fa-eye"></i>
                   <% end %>
-                  <%= link_to project_app_thread_path(@project.id,thread.id), method: :delete, data:{confirm:'Delete Thread?'} do %>
+                  <%= link_to edit_user_project_app_thread_path(@user,@project,thread), class:'mr-2' do %>
+                      <i class="fa fa-edit"></i>
+                  <% end %>
+                  <%= link_to user_project_app_thread_path(@user,@project,thread), method: :delete, data:{confirm:'Delete Thread?'} do %>
                       <i class="fa fa-trash" style='color:red'></i>
                   <% end %>
                 </span>

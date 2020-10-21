@@ -18,17 +18,23 @@ require("channels")
 
 //= require jquery
 //= require jquery_ujs
-// require bootstrap-sprockets
 //= require popper
 //= require bootstrap
 //= require_tree .
 
-var jQuery = require("jquery");
+//alert("JS");
 
-global.$ = global.jquery =  jQuery;
-window.$ = window.jquery = jQuery;
+//include JQuery framework
+var jQuery = require('jquery')
 
-$(function(){
-    alert('here');
-    $('[data-toggle="tooltip"]').tooltip();
-});
+// include jQuery in global and window scope (so you can access it globally)
+// in your web browser, when you type $('.div'), it is actually refering to global.$('.div')
+global.$ = global.jQuery = jQuery;
+window.$ = window.jQuery = jQuery;
+
+//alert("JS");
+
+// $(function(){
+//     alert('here');
+//     $('[data-toggle="tooltip"]').tooltip();
+// });

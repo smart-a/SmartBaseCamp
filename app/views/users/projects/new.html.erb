@@ -1,0 +1,10 @@
+<div class="new_container">
+    <h1>New Project</h1>
+
+    <%= render 'form', project: [@user, @project] %>
+
+    <%= link_to user_projects_path, class: 'btn btn-sm btn-secondary' do %>
+        <i class="fa fa-arrow-left"></i>
+    <% end %>
+
+</div>

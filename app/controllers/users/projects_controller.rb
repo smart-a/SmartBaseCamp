@@ -1,4 +1,4 @@
-class ProjectsController < ApplicationController
+class Users::ProjectsController < ApplicationController
   before_action :set_session
   before_action :set_project, only: [:show, :edit, :update, :destroy]
 
@@ -7,38 +7,44 @@ class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.json
   def index
-    @projects = Project.all
+    @user = User.find(params[:user_id])
+    @projects = @user.projects.order('created_at DESC')
   end
 
   # GET /projects/1
   # GET /projects/1.json
   def show
-    @project = Project.find(params[:id])
+    # @user = User.find(params[:user_id])
+    # @project = @user.projects.find(params[:id])
+
     @app_thread = AppThread.new
-    @app_threads = @project.app_threads
+    @app_threads = @project.app_threads.order('created_at DESC')
   end
 
   # GET /projects/new
   def new
-    @project = Project.new
+    @user = User.find(params[:user_id])
+    @project = @user.projects.new
   end
  
   # GET /projects/1/edit
   def edit
-    @project = Project.find(params[:id])
+    # @user = User.find(params[:user_id])
+    # @project = @user.projects.find(params[:id])
   end
 
   # POST /projects
   # POST /projects.json
   def create
-    @project = Project.new(project_params)
+    @user = User.find(params[:user_id])
+    @project =  @user.projects.new(project_params)
 
     respond_to do |format|
       if @project.save
-        format.html { redirect_to @project, notice: 'Project was successfully created.' }
+        format.html { redirect_to [@user,@project], notice: 'Project was successfully created.' }
         format.json { render :show, status: :created, location: @project }
       else
-        format.html { render :new }
+        format.html { redirect_to :new_user_project, notice: @project.errors }
         format.json { render json: @project.errors, status: :unprocessable_entity }
       end
     end
@@ -47,10 +53,12 @@ class ProjectsController < ApplicationController
   # PATCH/PUT /projects/1
   # PATCH/PUT /projects/1.json
   def update
-    @project = Project.find(params[:id])
+    # @user = User.find(params[:user_id])
+    # @project = @user.projects.find(params[:id])
+
     respond_to do |format|
       if @project.update(project_params)
-        format.html { redirect_to @project, notice: 'Project was successfully updated.' }
+        format.html { redirect_to [@user,@project], notice: 'Project was successfully updated.' }
         format.json { render :show, status: :ok, location: @project }
       else
         format.html { render :edit }
@@ -64,7 +72,7 @@ class ProjectsController < ApplicationController
   def destroy
     @project.destroy
     respond_to do |format|
-      format.html { redirect_to projects_url, notice: 'Project was successfully destroyed.' }
+      format.html { redirect_to user_projects_url, notice: 'Project was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -72,7 +80,8 @@ class ProjectsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_project
-      @project = Project.find(params[:id])
+      @user = User.find(params[:user_id])
+      @project = @user.projects.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
@@ -83,6 +92,6 @@ class ProjectsController < ApplicationController
     # Set session
     def set_session
       @user_session = session['user']
-      @user_session = session['user'] = {firstname:'Adesoye', lastname:'Olalekan', email:'admin@smartbasecamp.com', user_role:'admin'}
+      # @user_session = session['user'] = {firstname:'Adesoye', lastname:'Olalekan', email:'admin@smartbasecamp.com', user_role:'admin'}
     end
 end

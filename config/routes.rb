@@ -4,25 +4,25 @@ Rails.application.routes.draw do
   
   root 'users#home'
   
- 
+
   get 'users/login'
   post 'users/signin', to: 'users#signin'
-  
-  get 'users/dashboard'
-  get '/users/show', to: 'users#show'
   get 'users/set_user', to: 'users#set_user'
-  post 'users/update', to: 'user#update'
-  get 'users/dashboard'
-  get 'project', to: 'projects#new'
+  # post 'users/update', to: 'user#update'
+  # get 'users/dashboard'
+  # get 'project', to: 'projects#new'
 
-  get '/users/:id/show', to: 'users#show'
+  # get '/users/:id/show', to: 'users#show'
   
-  get 'user/logout'
-  
-  resources :users
+  get 'users' => "users#new"
+  get 'users/logout' => "users#logout"
+  # resources :users, only: [:new, :create, :show, :update]
+ 
 
-  resources :projects do
-    resources :app_threads, controller: 'projects/app_threads'
+  resources :users, only: [:new, :edit, :create, :show, :update] do 
+    resources :projects, controller: 'users/projects' do
+      resources :app_threads, controller: 'users/projects/app_threads'
+    end
   end
   
   resources :admin

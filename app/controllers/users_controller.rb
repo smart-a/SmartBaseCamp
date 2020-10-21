@@ -3,6 +3,8 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
  
   def home
+    # @user_session = nil
+    # @user_login = nil
   end
 
   # GET /users
@@ -14,10 +16,12 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    @project = @user.projects
   end
 
   # GET /users/new
   def new
+    # @user_session = nil
     @user = User.new
   end
 
@@ -32,57 +36,43 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
+        format.html { redirect_to :users_login, flash[:notice] => 'User was successfully created.' }
         format.json { render :show, status: :created, location: @user }
       else
-        format.html { render :new }
+        format.html { render action:'new' }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
   end
   
   def login
-    err = params[:login_err].to_i
-    @err_msg = nil
-    if err == 419 && session['page'] == "login"
-        @err_msg = "Invalid Email/ Password"
-    end
-end
+  end
 
 def login_params
     params.fetch(:users, Hash.new).permit(:email, :password)
 end
 
 def signin
-  session['page'] = nil
   email = login_params['email']
   password = login_params['password']
-  result = {}
-  ActiveRecord::Base.connection.exec_query(
-      "SELECT * FROM users WHERE email='#{email}' AND password='#{password}'"
-  ).each do|row| 
-      result = {id: row['id'],firstname: row['firstname'], lastname: row['lastname'],email: row['email'],user_role: row['user_role']}
+  @user_login = User.find_by(email: email, password: password) #where(email: email, password: password)
+
+  respond_to do |format|
+    if !@user_login.nil?
+      session['user'] = @user_login
+      format.html { redirect_to user_projects_path(@user_login[:id]) }
+      format.json { render :show, status: :ok, location: @user_login }
+    else
+      format.html { redirect_to :users_login, notice: 'Invalid user login.' }
+      format.json { render json: @user_login.errors, status: :unprocessable_entity }
+    end
   end
-  
-  if !result.empty?
-      session['user'] = result
-      redirect_to :action=>'dashboard'
-      
-  else
-      session['page'] = "login"
-      redirect_to action: 'login', login_err: 419
-      #do some code here
-  end
+
 end
 
 def logout
   session['user'] = nil
   redirect_to '/'
-end
-
-def dashboard
-  @users = session['user']
-  @project = Project.all()
 end
 
 # def update
@@ -100,7 +90,7 @@ end
   def update
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        format.html { redirect_to @user, notice: 'Profile was successfully updated.' }
         format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :edit }
@@ -130,7 +120,6 @@ end
 
     # Only allow a list of trusted parameters through.
     
-
     # Set session
     def set_session
       @user_session = session['user']
