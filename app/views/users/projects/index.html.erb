@@ -7,7 +7,7 @@
 <% end %>
 
 <h1>Projects</h1>
-<%= link_to new_project_path,class: 'btn btn-primary float-right mb-2' do %>
+<%= link_to :new_user_project, class: 'btn btn-primary float-right mb-2' do %>
   <i class="fa fa-plus"></i> New Project
 <% end %>
 <table class="table table-sm table-striped">
@@ -23,14 +23,14 @@
   <tbody>
     <% @projects.each do |project| %>
       <tr>
-        <td><%= link_to project.title, project,class: '' %></td>
+        <td><%= link_to project.title, user_project_path(@user,project), class: '' %></td>
         <td class="desc"><%= project.description %></td>
         <td><%= Date.parse(project.exp_completion_date.to_s, '%Y-%m-%d') %></td>
         <td>
-          <%= link_to edit_project_path(project),class: 'btn btn-sm btn-primary' do %>
+          <%= link_to edit_user_project_path(@user,project),class: 'btn btn-sm btn-primary' do %>
               <i class='fa fa-edit'></i>
           <% end %>
-          <%= link_to project, method: :delete, data:{ confirm: 'Are you sure?' },class: 'btn btn-sm btn-danger' do %>
+          <%= link_to user_project_path(@user,project), method: :delete, data:{ confirm: 'Are you sure?' },class: 'btn btn-sm btn-danger' do %>
               <i class='fa fa-trash'></i>
           <% end %>
         </td>

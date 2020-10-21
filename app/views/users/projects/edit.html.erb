@@ -1,0 +1,10 @@
+<h1>Update Project</h1>
+
+<%= render 'form', project: [@user, @project] %>
+
+<%= link_to user_projects_path, class: "btn btn-sm btn-secondary", 'data-toggle'=>"tooltip", 'data-placement'=>"top", title:"Back to project list" do %>
+    <i class="fa fa-arrow-left"></i>
+<% end %>
+ <%= link_to [@user,@project], class: "btn btn-sm btn-primary", 'data-toggle'=>"tooltip", 'data-placement'=>"top", title:"Back to project list" do %>
+    <i class="fa fa-eye"></i>
+  <% end %>

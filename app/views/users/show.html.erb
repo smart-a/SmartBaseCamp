@@ -1,5 +1,11 @@
 <h1>Your Profile Info!</h1>
-<p id="notice"><%= notice %></p>
+
+<% if !notice.nil? %>
+  <div id="notice" class="alert alert-info mt-4 alert-dismissible">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <%= notice %>
+  </div>
+<% end %>
 
 <dl>
   <dt><strong>Firstname:</strong></dt>
@@ -8,38 +14,14 @@
   <dd><%= @user.lastname %></dd>
   <dt><strong>Email Address:</strong></dt>
   <dd><%=@user.email %></dd>
-  <dt><strong>Password:</strong></dt>
-  <dd><%=@user.password %></dd>
+  <dt><strong>Project:</strong></dt>
+  <dd>You have <%= pluralize(@project.count, "project") %> </dd>
 </dl>
-<%
-=begin%>
- 
-<p>
-  <strong>Firstname:</strong>
-  <%= @user.firstname %>
-</p>
 
-<p>
-  <strong>Lastname:</strong>
-  <%= @user.lastname %>
-</p>
-
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
-
-<p>
-  <strong>Password:</strong>
-  <%= @user.password %>
-</p> 
-<%
-=end%>
-
-<%= link_to projects_path , class: "btn btn-secondary" do %>
+<%= link_to user_projects_path(@user) , class: "btn btn-sm btn-secondary" do %>
       <i class='fa fa-arrow-left'></i>
 <% end %>
-<%= link_to edit_user_path(@user),   class: "btn btn-primary ml-3" do %>
+<%= link_to edit_user_path(@user),   class: "btn btn-sm btn-primary ml-2" do %>
       <i class='fa fa-edit'></i>
 <% end %> 
 

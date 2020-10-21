@@ -1,6 +1,6 @@
 <h1>Editing App Thread</h1>
 
-<%= render 'form', app_thread: @app_thread %>
+<%= render 'form', app_thread: [@user,@project,@app_thread] %>
 
 <%= link_to 'Show', @app_thread %> |
 <%= link_to 'Back', app_threads_path %>

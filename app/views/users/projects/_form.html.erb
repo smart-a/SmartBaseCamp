@@ -1,0 +1,52 @@
+
+
+<%= form_with(model: project, local: true, class:'col-5') do |form| %>
+  
+  <% if @project.errors.any? %>
+  <div class="alert alert-danger alert-dismissible fade show mt-2 m-auto" style="width:50%" role="alert">
+    <a href=#  class="close" data-dismiss="alert" aria-label="Close">×</a>
+    <i class="fa fa-exclamation-triangle"></i> 
+    <strong>Errors</strong>
+    <ul>
+      <% @project.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<% if !notice.nil? %>
+  <div id="notice" class="alert alert-info mt-4 alert-dismissible">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <i class="fa fa-exclamation-triangle"></i> 
+    <strong>Errors</strong>
+    <ul>
+      <% notice.each do |key, msg| %>
+        <li><strong><%= key.capitalize %>: </strong><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+  <br/>
+  <div class="form-group">
+    <%= form.label :title %>
+    <%= form.text_field :title, class:"form-control", placeholder: "Title", autofocus: true %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :description %>
+    <%= form.text_area :description, rows: '3', class:"form-control", placeholder: "Description", autofocus: true %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :exp_completion_date, 'Expected completion date' %>
+    <%= form.datetime_select :exp_completion_date, class:"form-control", placeholder:"", autofocus:true %>
+  </div>
+
+  <div class="actions">
+    <div class="form-group">
+        <%= form.submit class: 'btn btn-success' %>
+    </div>
+  </div>
+<% end %>
