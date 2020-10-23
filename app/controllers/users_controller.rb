@@ -122,6 +122,9 @@ end
     
     # Set session
     def set_session
-      @user_session = session['user']
+      @user_session = nil
+      if !session['user'].nil?
+        @user_session = session['user']
+      end
     end
 end

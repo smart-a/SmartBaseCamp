@@ -20,8 +20,9 @@ Rails.application.routes.draw do
  
 
   resources :users, only: [:new, :edit, :create, :show, :update] do 
-    resources :projects, controller: 'users/projects' do
-      resources :app_threads, controller: 'users/projects/app_threads'
+    resources :projects do
+      resources :attachments, only: [:index, :new, :create, :destroy]
+      resources :app_threads
     end
   end
   

@@ -1,4 +1,4 @@
-class  Users::Projects::AppThreadsController < ApplicationController
+class  AppThreadsController < ApplicationController
   before_action :set_user_project
   before_action :set_app_thread, only: [:show, :edit, :update, :destroy]
   before_action :set_session
