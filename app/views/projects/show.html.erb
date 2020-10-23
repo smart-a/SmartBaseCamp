@@ -45,10 +45,10 @@
 <div class="container mt-5">
   <div class="">
       <%= form_for [@user, @project, @app_thread], method: :post do |f| %>
-        <div class="input-group col-3">
-          <%= f.text_field :th_content, placeholder:'Add Thread', class:'form-control form-control-sm', size: "7x2" %>
+        <div class="input-group col-5">
+          <%= f.text_field :th_content, placeholder:'Add Thread', required:'required', class:'form-control ', size: "7x2" %>
           <div class="input-group-append">
-              <%= f.button type:'submit', class:'btn btn-sm btn-outline-secondary align-self-end' do %>
+              <%= f.button type:'submit', class:'btn btn-outline-secondary align-self-end ' do %>
                 <i class="fa fa-paper-plane"></i>
               <% end %>
           </div>
@@ -56,12 +56,12 @@
       <% end %>
   </div>
 
-  <div class="container">
+  <div class="">
     <% @app_threads.each do |thread| %>
       <%
           t_date = Date.parse(thread.created_at.to_s, '%MMM %dd, %Y')
-          user_init = @user_session['firstname'][0] + @user_session['lastname'][0]
-          user_fullname = @user_session['firstname'] + ' ' + @user_session['lastname']
+          user_init = (@user['firstname'][0] + @user['lastname'][0]).upcase
+          user_fullname = @user['firstname'] + ' ' + @user['lastname']
       %>
       <section id='<%= thread.id %>'>
         <%#= link_to thread.th_content, project_app_thread_path(@project,thread.id) %>
@@ -71,13 +71,11 @@
               <abbr class="timestamp"><%= t_date %></abbr>
             </div>	
             <!-- Message. Default to the left -->
-            <div class="direct-chat-msg doted-border">
+            <div class="direct-chat-msg">
               <div class="direct-chat-info clearfix">
                 <span class="direct-chat-name pull-left"> <small><strong>Thread by:</strong> <%= user_fullname %></small></span>
               </div>
               <!-- /.direct-chat-info -->
-              <!--<img alt="message user image" src="http://bootsnipp.com/img/avatars/bcf1c0d13e5500875fdd5a7e8ad9752ee16e7462.jpg" class="direct-chat-img">
-               /.direct-chat-img -->
                <div class="direct-chat-img"><%= user_init %></div>
               <div class="direct-chat-text">
                 <%= link_to user_project_app_thread_path(@user,@project,thread) do %>
@@ -98,18 +96,26 @@
               <div class="direct-chat-info clearfix">
                 <span class="direct-chat-timestamp pull-right"><%= time_ago_in_words(thread.created_at) %></span>
               </div>
-              <!--
-              <div class="direct-chat-info clearfix">
-                <span class="direct-chat-img-reply-small pull-left">
-                </span>
-                <span class="direct-chat-reply-name"></span>
-              </div>
-             /.direct-chat-text -->
+             <!--/.direct-chat-text -->
             </div>
             <!-- /.direct-chat-msg -->
           </div>
         </div>
       </section>
+    <% end %>
+  </div>
+  <div class="projects-actions m-4">
+    <%= link_to user_projects_path(@user), class: "btn btn-sm btn-warning", 'data-toggle'=>"tooltip", 'data-placement'=>"top", title:"Back to project list" do %>
+      <i class="fa fa-arrow-left"></i>
+    <% end %>
+    <%= link_to edit_user_project_path(@user,@project), class: "btn btn-sm btn-primary" do %> 
+      <i class="fa fa-edit"></i>
+    <% end %>
+    <%= link_to  user_projects_path(@user), class: "btn btn-sm btn-secondary" do %> 
+      <i class="fa fa-paperclip"></i>
+    <% end %>
+    <%= link_to user_projects_path(@user), class: "btn btn-sm btn-success" do %>
+      <i class="fa fa-user"></i>
     <% end %>
   </div>
 </div>

@@ -1,0 +1,102 @@
+<% if !notice.nil? %>
+  <div id="notice" class="alert alert-info mt-4 alert-dismissible">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <%= notice %>
+  </div>
+<% end %>
+
+ <div class="container mb-4">
+  <div class="mt-2">
+    <%= link_to user_project_path(@user,@project), class: "btn btn-sm btn-secondary", 'data-toggle'=>"tooltip", 'data-placement'=>"top", title:"Back to project list" do %>
+      <i class="fa fa-arrow-left"></i>
+    <% end %>
+  </div>
+  <%  @thread_user = @app_thread.project.user
+      t_date = Date.parse(@app_thread['created_at'].to_s, '%MMM %dd, %Y')
+      user_init = (@thread_user['firstname'][0] + @thread_user['lastname'][0]).upcase
+      user_fullname = @thread_user['firstname'] + ' ' + @thread_user['lastname']
+  %>
+  <section id='<%= @app_thread['id'] %>'>
+    <%#= link_to thread.th_content, project_app_thread_path(@project,thread.id) %>
+    <div class="popup-messages">
+      <div class="direct-chat-messages">
+        <div class="chat-box-single-line">
+          <abbr class="timestamp"><%= t_date %></abbr>
+        </div>	
+        <!-- Message. Default to the left -->
+        <div class="direct-chat-msg doted-border">
+          <div class="direct-chat-info clearfix">
+            <span class="direct-chat-name pull-left"> <small><strong>Thread by:</strong> <%= user_fullname %></small></span>
+          </div>
+          <div class="direct-chat-img"><%= user_init %></div>
+          
+          <div class="direct-chat-text ">
+            <!-- Thread Time -->
+            <div class="direct-chat-info clearfix">
+              <span class="direct-chat-timestamp pull-right"><%= time_ago_in_words(@app_thread['created_at']) %></span>
+            </div>
+            <!--end Thread Time -->
+
+            <div class="over-flow">
+              <!-- Thread content-->
+              <div class="msg-text">
+                <%= @app_thread['th_content'] %>
+              </div>
+
+                <!--Thread button option -->
+                <span class="pull-right ml-2">
+                  <%= link_to '#', remote: :true, class:'reply-btn mr-2' do %>
+                    <i class="fa fa-reply"></i>
+                  <% end %>
+                  <% if @thread_user==@user %>
+                    <%= link_to [@user,@project,@app_thread], class:'mr-2' do %>
+                        <i class="fa fa-edit"></i>
+                    <% end %>
+                    <%= link_to [@user,@project,@app_thread], method: :delete, data:{confirm:'Delete Message?'} do %>
+                        <i class="fa fa-trash" style='color:red'></i>
+                    <% end %>
+                  <% end %>
+                </span>
+
+                <!--Reply Form-->
+                <div class="reply-container hide mt-2" id="<%="t-form-#{@app_thread['id']}" %>" >
+                  <span class="d-flex pull-right ">
+                    <% @message = Message.new %>
+                    <%= form_for [@user, @project, @app_thread,@message], method: :post, class:'reply-form' do |f| %>
+                      <div class="input-group ">
+                        <%= f.text_field 'msg_content', autofocus: true, placeholder:'Reply', class:'form-control form-control-sm', required:'required' %>
+                        <%= f.text_field 'message_id', type:'hidden'  %>
+                        <div class="input-group-append">
+                          <%= f.button type:'submit', class:'btn btn-sm btn-secondary post-thread', data:{ id: @app_thread['id'] } do %>
+                            <i class="fa fa-location-arrow"></i>
+                          <% end %>
+                        </div>
+                      </div>
+                    <% end %>
+                  </span>
+                </div>
+              <!-- end Reply Form-->
+            </div>
+          </div>
+
+          <div class="render-div" id="<%= "thread-#{@app_thread['id']}" %>">
+            <%= render 'messages/inner_message', inner_message: @messages %>
+          </div>
+
+           <!--round dot after dotted lines -->
+          <span class="direct-chat-img-reply-small pull-left">
+          </span>
+        </div>
+        
+        <!-- /.direct-chat-msg -->
+      </div>
+    </div>
+  </section>
+  <div class="projects-actions mt-3">
+    <%= link_to user_project_path(@user,@project), class: "btn btn-sm btn-secondary mt-2", 'data-toggle'=>"tooltip", 'data-placement'=>"top", title:"Back to project list" do %>
+      <i class="fa fa-arrow-left"></i>
+    <% end %>
+  </div>
+</div>
+
+

@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :app_threads
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   
   root 'users#home'
@@ -20,8 +19,15 @@ Rails.application.routes.draw do
  
 
   resources :users, only: [:new, :edit, :create, :show, :update] do 
-    resources :projects, controller: 'users/projects' do
-      resources :app_threads, controller: 'users/projects/app_threads'
+    resources :projects do
+      
+      resources :app_threads do
+        resources :messages # , only:[:new, :edit, :show, :update]
+        # post '/:app_thread_id' => 'messages#create'
+        # resources :thread_messages do # , controller: 'users/projects/app_threads/thread_messages'
+           #, controller: 'users/projects/app_threads/thread_messages/messages'
+        # end
+      end
     end
   end
   

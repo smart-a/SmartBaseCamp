@@ -1,13 +1,13 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-gem 'jquery-rails', '~> 4.4.0'
-gem 'bootstrap', '~> 4.5.2'
-# gem 'jquery-rails'
-# gem 'bootstrap', '~> 4.0.0'
+# gem 'jquery-rails', '~> 4.4.0'
+# gem 'bootstrap', '~> 4.5.2'
+gem 'jquery-rails'
+gem 'bootstrap', '~> 4.0.0'
 gem 'carrierwave', '~> 2.1.0'
 gem 'font-awesome-rails'
-
+gem 'rails-ujs'
 # ruby '2.7.1'
 ruby '2.6.6'
 

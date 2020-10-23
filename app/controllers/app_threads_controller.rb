@@ -1,4 +1,4 @@
-class  Users::Projects::AppThreadsController < ApplicationController
+class  AppThreadsController < ApplicationController
   before_action :set_user_project
   before_action :set_app_thread, only: [:show, :edit, :update, :destroy]
   before_action :set_session
@@ -12,6 +12,9 @@ class  Users::Projects::AppThreadsController < ApplicationController
   # GET /app_threads/1
   # GET /app_threads/1.json
   def show
+    # @thread_owner = @app_thread.find(@user[:user_id])
+    # @thread_messages = @app_thread.thread_messages
+    @messages = @app_thread.messages.where(message_id: nil)
   end
 
   # GET /app_threads/new
@@ -27,13 +30,15 @@ class  Users::Projects::AppThreadsController < ApplicationController
   # POST /app_threads.json
   def create
     @app_thread = @project.app_threads.new(app_thread_params)
+    @app_thread.user_id = @user.id
 
     respond_to do |format|
       if @app_thread.save
-        format.html { redirect_to user_project_url(@user,@project), notice: 'App thread was successfully created.' }
+        format.js {}
+        format.html { redirect_to user_project_url(@user,@project), notice: 'Thread was successfully created.' }
         format.json { render :show, status: :created, location: @app_thread }
       else
-        format.html { render :new }
+        format.html { redirect_to user_project_url(@user,@project), notice: @app_thread.errors.full_messages.inspect}
         format.json { render json: @app_thread.errors, status: :unprocessable_entity }
       end
     end
@@ -44,7 +49,7 @@ class  Users::Projects::AppThreadsController < ApplicationController
   def update
     respond_to do |format|
       if @app_thread.update(app_thread_params)
-        format.html { redirect_to user_project_url(@user,@project), notice: 'Thread was successfully updated.' }
+        format.html { redirect_to user_project_url(@user, @project), notice: 'Thread was successfully updated.' }
         format.json { render :show, status: :ok, location: @app_thread }
       else
         format.html { render :edit }
@@ -58,7 +63,7 @@ class  Users::Projects::AppThreadsController < ApplicationController
   def destroy
     @app_thread.destroy
     respond_to do |format|
-      format.html { redirect_to project_app_threads_url, notice: 'Thread was successfully destroyed.' }
+      format.html { redirect_to user_project_path(@user,@project), notice: 'Thread was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -69,15 +74,15 @@ class  Users::Projects::AppThreadsController < ApplicationController
       @app_thread = @project.app_threads.find(params[:id])
     end
 
-     # Use callbacks to share common setup or constraints between actions.
-     def set_user_project
+    # Use callbacks to share common setup or constraints between actions.
+    def set_user_project
       @user = User.find(params[:user_id])
       @project = @user.projects.find(params[:project_id])
     end
 
     # Only allow a list of trusted parameters through.
     def app_thread_params
-      params.require(:app_thread).permit(:project_id, :th_content)
+      params.require(:app_thread).permit(:user_id,:th_content)  #:project_id, , 
     end
 
     # Set session
