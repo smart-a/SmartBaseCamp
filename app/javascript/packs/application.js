@@ -1,3 +1,11 @@
+import flatpickr from 'flatpickr'
+import 'flatpickr/dist/flatpickr.min.css'
+flatpickr(".datepicker", {
+
+});
+
+
+
 // This file is automatically compiled by Webpack, along with any other files
 // present in this directory. You're encouraged to place your actual application logic in
 // a relevant structure within app/javascript and only use these pack files to reference
@@ -16,15 +24,18 @@ require("channels")
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
+
+
 //= require jquery
 //= require jquery_ujs
 //= require popper
 //= require bootstrap
+//= require flatpickr
+// Locales can be included like so:
+//= require flatpickr/l10n/da
 //= require_tree .
-
-//alert("JS");
-
 //include JQuery framework
+
 var jQuery = require('jquery')
 
 // include jQuery in global and window scope (so you can access it globally)
@@ -32,9 +43,7 @@ var jQuery = require('jquery')
 global.$ = global.jQuery = jQuery;
 window.$ = window.jQuery = jQuery;
 
-//alert("JS");
-
-// $(function(){
-//     alert('here');
-//     $('[data-toggle="tooltip"]').tooltip();
-// });
+$(function(){
+    //alert('here');
+    $('.exp_date').flatpickr();
+});

@@ -1,4 +1,4 @@
-class Users::ProjectsController < ApplicationController
+class ProjectsController < ApplicationController
   before_action :set_session
   before_action :set_project, only: [:show, :edit, :update, :destroy]
 
