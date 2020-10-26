@@ -12,8 +12,6 @@ class  AppThreadsController < ApplicationController
   # GET /app_threads/1
   # GET /app_threads/1.json
   def show
-    # @thread_owner = @app_thread.find(@user[:user_id])
-    # @thread_messages = @app_thread.thread_messages
     @messages = @app_thread.messages.where(message_id: nil)
   end
 
@@ -82,7 +80,7 @@ class  AppThreadsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def app_thread_params
-      params.require(:app_thread).permit(:user_id,:th_content)  #:project_id, , 
+      params.require(:app_thread).permit(:project_id, :th_content)
     end
 
     # Set session

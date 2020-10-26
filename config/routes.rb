@@ -15,18 +15,12 @@ Rails.application.routes.draw do
   
   get 'users' => "users#new"
   get 'users/logout' => "users#logout"
-  # resources :users, only: [:new, :create, :show, :update]
  
-
   resources :users, only: [:new, :edit, :create, :show, :update] do 
     resources :projects do
-      
+      resources :attachments, only: [:index, :new, :create, :destroy]
       resources :app_threads do
-        resources :messages # , only:[:new, :edit, :show, :update]
-        # post '/:app_thread_id' => 'messages#create'
-        # resources :thread_messages do # , controller: 'users/projects/app_threads/thread_messages'
-           #, controller: 'users/projects/app_threads/thread_messages/messages'
-        # end
+        resources :messages
       end
     end
   end

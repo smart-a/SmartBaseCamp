@@ -13,7 +13,9 @@
  *= require font-awesome
  *= require_tree .
  *= require_self
- */
+ *= require flatpickr
+ * Optionally, you can include any of the flatpickr themes by adding in their styles, like so: 
+ *= require flatpickr/themes/dark
 
  @import 'bootstrap';
  @import "font-awesome";

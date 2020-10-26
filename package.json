@@ -9,6 +9,7 @@
     "ajax": "^0.0.4",
     "jquery": "^3.5.1",
     "rails-ujs": "^5.2.4-4",
+    "flatpickr": "^4.6.6",
     "turbolinks": "^5.2.0"
   },
   "version": "0.1.0",

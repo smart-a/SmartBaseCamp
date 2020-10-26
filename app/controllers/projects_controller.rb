@@ -16,9 +16,8 @@ class ProjectsController < ApplicationController
   def show
     # @user = User.find(params[:user_id])
     # @project = @user.projects.find(params[:id])
-    
-    @app_thread = @project.app_threads.new
-    @app_threads = @project.app_threads.group(:created_at).order('created_at DESC')
+    @app_thread = AppThread.new
+    @app_threads = @project.app_threads.order('created_at DESC')
   end
 
   # GET /projects/new

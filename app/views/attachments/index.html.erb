@@ -1,0 +1,53 @@
+
+<% if !notice.nil? %>
+  <div id="notice" class="alert alert-info mt-4 alert-dismissible">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <%= notice %>
+  </div>
+<% end %>
+
+<br />
+
+<%#= link_to "New Attachment", new_user_project_attachment_path, class: "btn btn-primary" %>
+<div class = "mb-3">
+   <%= form_for @attachment, url: {action: 'create'}, html:{multipart: true, class:'form-inline' } do |f| %>
+      <%= f.text_field :name, class:"form-control mr-2", placeholder:'Attachement name' %>
+      <div class="custom-file col-4 mr-2">
+         <%= f.file_field :path, class:'custom-file-input' %>
+         <%= f.label :path, class:'custom-file-label', required:'required' %>
+      </div>
+       <%= f.button type:'submit', class: "btn btn-secondary" do %>
+         <i class="fa fa-cloud-upload"></i>
+       <% end %>
+   <% end %>
+</div>
+
+<table class = "table table-bordered table-striped">
+   <thead>
+      <tr>
+         <th>Name</th>
+         <th>Download Link</th>
+         <th> </th>
+      </tr>
+   </thead>
+   
+   <tbody>
+      <% @attachments.each do |attach| %>
+         
+         <tr>
+            <td><%= attach.name %></td>
+            <td><%= link_to "Download Attachment", attach.path_url %></td>
+            <td><%= link_to [@user,@project,attach] , method: :delete,  data:{confirm: "Are you sure that you wish to delete #{attach.name}?" },class: 'btn btn-sm btn-danger' do %>
+            <i class='fa fa-trash'></i>
+            <% end %>
+            </td>
+         </tr>
+         
+      <% end %>
+   </tbody>
+   
+</table>
+<%= link_to [@user,@project], class: "btn btn-sm btn-warning", 'data-toggle'=>"tooltip", 'data-placement'=>"top", title:"Back to project list" do %>
+   <i class="fa fa-arrow-left"></i>
+<% end %>
+
