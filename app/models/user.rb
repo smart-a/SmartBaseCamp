@@ -1,5 +1,6 @@
 class User < ApplicationRecord
     has_many :projects
+    has_many :project_users
     validates_presence_of(:firstname)
     validates :firstname, length: {minimum: 5}
     validates_presence_of(:lastname)

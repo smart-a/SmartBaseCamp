@@ -10,11 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_20_083237) do
+ActiveRecord::Schema.define(version: 2020_10_21_133514) do
 
   create_table "app_threads", force: :cascade do |t|
     t.integer "project_id"
     t.text "th_content"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "project_users", force: :cascade do |t|
+    t.integer "project_id"
+    t.integer "user_id"
+    t.string "email"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

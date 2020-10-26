@@ -20,12 +20,14 @@
   <dd><%= (!@project.completion_date.nil?)? Date.parse(@project.completion_date.to_s, '%Y-%m-%d') : 'On going' %></dd>
 </dl>
 <div>
-  <dl>
-  <dt><strong>Project Users:</strong></dt>
-  <dd>
-    
-  </dd>
-</dl>
+ 
+
+ <%
+=begin%>
+ <%=link_to  "All Project Users",  user_project_project_users_path(@user,@project,@project_user), class: "btn btn-secondary" %> 
+<%
+=end%>
+
 </div>
 <div class="projects-actions">
   <%= link_to user_projects_path(@user), class: "btn btn-sm btn-warning", 'data-toggle'=>"tooltip", 'data-placement'=>"top", title:"Back to project list" do %>
@@ -37,9 +39,22 @@
   <%= link_to  user_projects_path(@user), class: "btn btn-sm btn-secondary" do %> 
     <i class="fa fa-paperclip"></i>
   <% end %>
-  <%= link_to user_projects_path(@user), class: "btn btn-sm btn-success" do %>
+<%
+=begin%>
+ <% if @user['user_role'] == 'admin' %> 
+<%
+=end%>
+  <%= link_to user_project_project_users_path(@user,@project), class: "btn btn-sm btn-success" do %>
     <i class="fa fa-user"></i>
+    
   <% end %>
+  <%
+=begin%>
+ <%end%> 
+<%
+=end%>
+
+
 </div>
 
 <div class="container mt-5">

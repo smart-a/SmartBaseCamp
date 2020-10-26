@@ -1,4 +1,4 @@
-class Users::ProjectsController < ApplicationController
+class ProjectsController < ApplicationController
   before_action :set_session
   before_action :set_project, only: [:show, :edit, :update, :destroy]
 
@@ -16,9 +16,11 @@ class Users::ProjectsController < ApplicationController
   def show
     # @user = User.find(params[:user_id])
     # @project = @user.projects.find(params[:id])
-
+    @project_user=ProjectUser.new
     @app_thread = AppThread.new
     @app_threads = @project.app_threads.order('created_at DESC')
+    @project_users = @project.project_users
+
   end
 
   # GET /projects/new
