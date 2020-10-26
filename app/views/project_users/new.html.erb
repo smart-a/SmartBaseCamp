@@ -11,9 +11,8 @@
 
  <div class="signin-form">
 	<div class="container h-100" >
-		<%
-=begin%>
- <% if @project_user.errors.any? %>
+
+ 		<% if @project_user.errors.any? %>
 			<div class="alert alert-danger alert-dismissible fade show mt-2 m-auto" style="width:50%" role="alert">
 				<a href=#  class="close" data-dismiss="alert" aria-label="Close">×</a>
 				<i class="fa fa-exclamation-triangle"></i> 
@@ -25,8 +24,8 @@
 				</ul>
 			</div>
 		<% end %> 
-<%
-=end%>
+
+
 		<div class="d-flex justify-content-center h-100" style="margin-top: 90px">
 			<div class="user_card">
 				<div class="d-flex justify-content-center">
@@ -38,7 +37,7 @@
 				
 				<div class="d-flex justify-content-center form_container" style="margin-top: 50px">
 					<div class="mt-1">
-						<%= form_for [@user,@project,@project_user] ,method: :post do |f| %>
+						<%= form_for [@user,@project,@project_user], method: :post do |f| %>
 
                              <div class="input-group mb-2">
 								<div class="input-group-append">

@@ -20,9 +20,28 @@ ActiveRecord::Schema.define(version: 2020_11_23_082338) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "attachments", force: :cascade do |t|
+    t.integer "project_id"
+    t.string "name"
+    t.string "path"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "app_thread_id"
+    t.integer "message_id"
+    t.string "msg_content"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["message_id"], name: "index_messages_on_message_id"
+  end
+
   create_table "project_users", force: :cascade do |t|
     t.integer "project_id"
     t.integer "user_id"
+    t.string "email"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

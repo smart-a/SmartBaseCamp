@@ -23,12 +23,13 @@
   <tbody>
    <tr>
     <% @project_users.each do |project_user| %> 
+      <% @contributor = User.find(project_user.user_id) %>
       <tr>
-      <td><%= project_user.users['firstname'] %></td>
-      <td><%= project_user.users [:lastname] %></td>
-      <td><%= project_user.users [:email] %></td>
+      <td><%= @contributor[:firstname] %></td>
+      <td><%= @contributor[:lastname] %></td>
+      <td><%= @contributor[:email] %></td>
       <td>
-     <%= link_to user_project_project_users_path, method: :delete, data:{ confirm: 'Are you sure?' },class: 'btn btn-sm btn-danger' do %>
+     <%= link_to user_project_project_user_url(@user,@project,project_user), method: :delete, data:{ confirm: 'Are you sure?' },class: 'btn btn-sm btn-danger' do %>
               <i class='fa fa-trash'></i>
       <% end %>
         </td>
@@ -36,119 +37,3 @@
     <% end %>
   </tbody>
 </table>
-
-  <%
-=begin%>
- <%= link_to 'Remove',user_project_project_users_path ,method: :delete, data: { confirm: 'Are you sure?' } ,class:"btn btn-secondary" %>
-
-
-
-
-
-
-
-<h5 >Project Members for Project, ID: <%= @project_users[0].project_id%></h5>
-
-
-<% if !notice.nil? %>
-  <div id="notice" class="alert alert-info mt-4 alert-dismissible">
-    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-    <%= notice %>
-  </div>
-<% end %>
-<% @project_users.each do |project_user| %> 
-
-  <%
-=begin%>
- <% @users.each do |user| %> 
-<%
-=end%>
-<%
-=begin%>
- <dl>
-
-
-  <dt><strong>Project ID:</strong></dt>
-  <dd><%= project_user.project_id %></dd>
-  <dt><strong>User ID:</strong></dt>
-  <dd><%= project_user.user_id %></dd>
-   
-  <% @users.each do |user|%>
-    <% if project_user.user_id == user.id %>
-        <dt><strong>Firstname:</strong></dt>
-        <dd><%= user.firstname %></dd>
-        <dt><strong>Lastname:</strong></dt>
-        <dd><%= user.lastname %></dd>
-        <dt><strong>Email:</strong></dt>
-        <dd><%=user.email %></dd>
-    <%end%> 
-<%
-=end%>
-        <%
-=begin%>
- <%=f.firstname %>
-         <%end%> 
-<%
-=end%>
-   <%
-=begin%>
- <%end%>
-   </dd>
- 
-<%
-=end%>
-
-  
-
- <%
-=begin%>
- <% @users.each do |user| %> 
-<%
-=end%> 
-
-
-  <%
-=begin%>
- <dt><strong>User ID:</strong></dt>
-  <dd> <%= user.id %></dd>
-  <dt><strong>Firstname:</strong></dt>
-  <dd> <%= user.firstname %></dd>
-  <dt><strong>Lastname:</strong></dt>
-  <dd><%= user.lastname%></dd>
-  <dt><strong>Email Address:</strong></dt>
-  <dd><%=user.email %></dd> 
-<%
-=end%>
-
-  
-  <%
-=begin%>
- <%= link_to 'Remove',user_project_project_users_path ,method: :delete, data: { confirm: 'Are you sure?' } ,class:"btn btn-secondary" %>
-
-</dl>
-         
-<%
-=end%>
-
- 
-  <%
-=begin%>
- <%end%> 
-<%
-=end%>
-<%
-=begin%>
- <% end %>
-    
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New project user', new_user_project_project_user_path ,class: "btn btn-secondary" %> 
-<%
-=end%> 
-<%
-=begin%>
- <%
-=end%> 
