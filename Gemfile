@@ -7,8 +7,8 @@ gem 'carrierwave', '~> 2.1.0'
 gem 'font-awesome-rails'
 gem 'flatpickr'
 
- ruby '2.7.1'
-# ruby '2.6.6'
+#  ruby '2.7.1'
+ ruby '2.6.6'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.3', '>= 6.0.3.4'

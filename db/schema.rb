@@ -20,15 +20,6 @@ ActiveRecord::Schema.define(version: 2020_11_23_082338) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "messages", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "app_thread_id"
-    t.integer "message_id"
-    t.string "msg_content"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["message_id"], name: "index_messages_on_message_id"
-
   create_table "attachments", force: :cascade do |t|
     t.integer "project_id"
     t.string "name"
@@ -37,12 +28,29 @@ ActiveRecord::Schema.define(version: 2020_11_23_082338) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "messages", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "app_thread_id"
+    t.integer "message_id"
+    t.string "msg_content"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["message_id"], name: "index_messages_on_message_id"
+  end
+
   create_table "projects", force: :cascade do |t|
     t.integer "user_id"
     t.string "title"
     t.text "description"
     t.datetime "exp_completion_date"
     t.datetime "completion_date"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "thread_messages", force: :cascade do |t|
+    t.integer "app_thread_id"
+    t.string "tm_content"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
