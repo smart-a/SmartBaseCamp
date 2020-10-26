@@ -1,5 +1,10 @@
 class User < ApplicationRecord
-    has_many :projects
+    has_many :projects, :dependent => :delete_all
+    has_many :app_threads, :dependent => :delete_all
+    has_many :messages, :dependent => :delete_all
+
+
+
     validates_presence_of(:firstname)
     validates :firstname, length: {minimum: 5}
     validates_presence_of(:lastname)

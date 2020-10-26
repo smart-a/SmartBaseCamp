@@ -1,0 +1,83 @@
+ <!-- Inner level reply -->
+<div class="ml-3">
+    <%# @message.each do |@message|  %>
+
+        <%  @msg_user = User.find(@message.user_id)
+            t_date = Date.parse(@message.created_at.to_s, '%MMM %dd, %Y')
+            user_init = (@msg_user['firstname'][0] + @msg_user['lastname'][0]).upcase
+            user_fullname = @msg_user['firstname'] + ' ' + @msg_user['lastname']
+        %>
+
+        <section id='<%= @message.id %>'>
+            <%#= link_to thread.th_content, project_app_thread_path(@project,thread.id) %>
+            <div class="popup-messages">
+                <div class="direct-chat-messages">
+                    <!-- Message. Default to the left -->
+                    <div class="direct-chat-msg doted-border">
+                        <div class="direct-chat-info clearfix">
+                            <span class="direct-chat-name pull-left"> <small><strong>@</strong><%= user_fullname %></small></span>
+                        </div>
+
+                        <div class="direct-chat-img"><%= user_init %></div>
+
+                        <div class="direct-chat-text ">
+                        
+                            <!-- Thread Time -->
+                            <div class="direct-chat-info clearfix">
+                            <span class="direct-chat-timestamp pull-right"><%= "#{t_date} ~ #{time_ago_in_words(@message.created_at)}" %></span>
+                            </div>
+                            <!--end Thread Time -->
+
+                            <div class="over-flow">
+                            <!-- Thread content-->
+                            <div class="msg-text">
+                                <%= @message.msg_content %>
+                            </div>
+
+                            <!--Message button option -->
+                            <span class="pull-right ml-2">
+                                <%= link_to '#', remote: :true, class:'reply-btn mr-2' do %>
+                                <i class="fa fa-reply"></i>
+                                <% end %>
+                                <% if @thread_user==@user %>
+                                <%= link_to '#', class:'mr-2' do %>
+                                    <i class="fa fa-edit"></i>
+                                <% end %>
+                                <%= link_to '#', method: :delete, data:{confirm:'Delete Message?'} do %>
+                                    <i class="fa fa-trash" style='color:red'></i>
+                                <% end %>
+                                <% end %>
+                            </span>
+                            
+
+                            <!--Reply Form-->
+                            <div class="reply-container hide mt-2" id="<%= "form-#{@message.id}" %>">
+                                <span class="d-flex pull-right ">
+                                <% @message = Message.new %>
+                                <%= form_for [@user, @project, @app_thread,@message], method: :post , class:'reply-form' do |f| %>
+                                    <div class="input-group ">
+                                    <%= f.text_field 'msg_content', autofocus: true, placeholder:'Reply', class:'form-control form-control-sm', required:'required' %>
+                                    <%= f.text_field 'message_id', type:'hidden', value: @message.id  %>
+                                    <div class="input-group-append">
+                                        <%= f.button type:'submit', class:'btn btn-sm btn-secondary post-msg', data:{id:"msg-#{@message.id}"} do %>
+                                        <i class="fa fa-location-arrow"></i>
+                                        <% end %>
+                                    </div>
+                                    </div>
+                                <% end %>
+                                </span>
+                            </div>
+                            <!-- end Reply Form-->
+                        </div>
+
+                           
+                        
+                    </div>
+
+                    <span class="direct-chat-img-reply-small pull-left">
+                    </span>
+                </div>
+            </div>
+        </section>
+    <%# end %>
+</div>

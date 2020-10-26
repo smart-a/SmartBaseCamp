@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :app_threads
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   
   root 'users#home'
@@ -16,13 +15,13 @@ Rails.application.routes.draw do
   
   get 'users' => "users#new"
   get 'users/logout' => "users#logout"
-  # resources :users, only: [:new, :create, :show, :update]
  
-
   resources :users, only: [:new, :edit, :create, :show, :update] do 
     resources :projects do
       resources :attachments, only: [:index, :new, :create, :destroy]
-      resources :app_threads
+      resources :app_threads do
+        resources :messages
+      end
     end
   end
   

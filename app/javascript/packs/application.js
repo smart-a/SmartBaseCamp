@@ -24,10 +24,11 @@ require("channels")
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
-
-
 //= require jquery
 //= require jquery_ujs
+//= require rails-ujs
+//= require activestorage
+//= require turbolinks 
 //= require popper
 //= require bootstrap
 //= require flatpickr
@@ -36,14 +37,16 @@ require("channels")
 //= require_tree .
 //include JQuery framework
 
-var jQuery = require('jquery')
+var jquery = require('jquery')
 
 // include jQuery in global and window scope (so you can access it globally)
 // in your web browser, when you type $('.div'), it is actually refering to global.$('.div')
-global.$ = global.jQuery = jQuery;
-window.$ = window.jQuery = jQuery;
+global.$ = global.jQuery = jquery;
+window.$ = window.jQuery = jquery;
+
+require('packs/thread')
 
 $(function(){
-    //alert('here');
     $('.exp_date').flatpickr();
 });
+
