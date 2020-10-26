@@ -7,7 +7,8 @@ class ProjectUsersController < ApplicationController
 
     def index 
         @project_users = @project.project_users
-        # @users=User.all
+        @users=User.all
+        @project_user = @project.project_users.new
         
 
         # @users = @user.project_users
@@ -17,11 +18,11 @@ class ProjectUsersController < ApplicationController
     
     
      
-      def new
-        @project_user = @project.project_users.new
-        # @project_user = ProjectUser.new
+      # def new
+      #   @project_user = @project.project_users.new
+      #   # @project_user = ProjectUser.new
 
-      end
+      # end
     
     
       def edit
