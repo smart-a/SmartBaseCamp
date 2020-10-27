@@ -1,7 +1,9 @@
 class  AppThreadsController < ApplicationController
+  before_action :require_user
+  before_action :require_same_user
+
   before_action :set_user_project
   before_action :set_app_thread, only: [:show, :edit, :update, :destroy]
-  before_action :set_session
 
   # GET /app_threads
   # GET /app_threads.json
@@ -83,8 +85,5 @@ class  AppThreadsController < ApplicationController
       params.require(:app_thread).permit(:project_id, :th_content)
     end
 
-    # Set session
-    def set_session
-      @user_session = session['user']
-    end
+
 end

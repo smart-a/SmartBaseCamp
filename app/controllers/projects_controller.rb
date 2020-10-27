@@ -1,5 +1,7 @@
 class ProjectsController < ApplicationController
-  before_action :set_session
+  before_action :require_user
+  before_action :require_same_user
+
   before_action :set_project, only: [:show, :edit, :update, :destroy]
 
   require 'date'
@@ -9,17 +11,17 @@ class ProjectsController < ApplicationController
   def index
     @user = User.find(params[:user_id])
     @projects = @user.projects.order('created_at DESC')
+    # @join_projects = ProjectUser.find(@user[:id]).projects.order('created_at DESC')
   end
 
   # GET /projects/1
   # GET /projects/1.json
   def show
     # @user = User.find(params[:user_id])
-    # @project = @user.projects.find(params[:id])
     @app_thread = AppThread.new
     @app_threads = @project.app_threads.order('created_at DESC')
-    @project_users = @project.project_users
-
+    # @project_users = @project.project_users
+    @attachments = @project.attachments
   end
 
   # GET /projects/new
@@ -90,9 +92,4 @@ class ProjectsController < ApplicationController
       params.require(:project).permit(:user_id, :title, :description, :exp_completion_date, :completion_date)
     end
 
-    # Set session
-    def set_session
-      @user_session = session['user']
-      # @user_session = session['user'] = {firstname:'Adesoye', lastname:'Olalekan', email:'admin@smartbasecamp.com', user_role:'admin'}
-    end
 end

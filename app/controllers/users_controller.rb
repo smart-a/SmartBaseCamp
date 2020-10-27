@@ -1,12 +1,10 @@
 class UsersController < ApplicationController
-  before_action :set_session  
+  before_action :require_user
+  before_action :require_same_user
+  
+  # before_action :require_same_user, only: [:show, :edit, :update]
   before_action :set_user, only: [:show, :edit, :update, :destroy]
  
-  def home
-    # @user_session = nil
-    # @user_login = nil
-  end
-
   # GET /users
   # GET /users.json
   def index
@@ -21,7 +19,6 @@ class UsersController < ApplicationController
 
   # GET /users/new
   def new
-    # @user_session = nil
     @user = User.new
   end
 
@@ -45,46 +42,7 @@ class UsersController < ApplicationController
     end
   end
   
-  def login
-  end
-
-def login_params
-    params.fetch(:users, Hash.new).permit(:email, :password)
-end
-
-def signin
-  email = login_params['email']
-  password = login_params['password']
-  @user_login = User.find_by(email: email, password: password) #where(email: email, password: password)
-
-  respond_to do |format|
-    if !@user_login.nil?
-      session['user'] = @user_login
-      format.html { redirect_to user_projects_path(@user_login[:id]) }
-      format.json { render :show, status: :ok, location: @user_login }
-    else
-      format.html { redirect_to :users_login, notice: 'Invalid user login.' }
-      format.json { render json: @user_login.errors, status: :unprocessable_entity }
-    end
-  end
-
-end
-
-def logout
-  session['user'] = nil
-  redirect_to '/'
-end
-
-# def update
-#   @users = User.find(params[:id])
-#   if @users.update(update_params)
-#       redirect_to action: 'set_user', notice: "1", id: @users
-#   else
-#       redirect_to action: 'set_user', notice: "0", id: @users
-#   end
-# end
-
-
+  
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
@@ -97,9 +55,6 @@ end
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
-  end
-  def user_params
-    params.require(:user).permit(:firstname, :lastname, :email, :password)
   end
 
   # DELETE /users/1
@@ -119,12 +74,8 @@ end
     end
 
     # Only allow a list of trusted parameters through.
-    
-    # Set session
-    def set_session
-      @user_session = nil
-      if !session['user'].nil?
-        @user_session = session['user']
-      end
+    def user_params
+      params.require(:user).permit(:firstname, :lastname, :email, :password)
     end
+
 end

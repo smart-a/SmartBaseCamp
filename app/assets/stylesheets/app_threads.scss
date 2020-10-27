@@ -82,11 +82,28 @@ body
 }
 .popup-box .popup-messages {
 }
-.popup-head-left img, .rounded-div {
+.popup-head-left .direct-chat-img {
     border: 1px solid #7b7b7b;
     border-radius: 50%;
     width: 44px;
 }
+
+.rounded-div {
+	background: #eaeaea  none repeat scroll 0 0; //3f9684
+    border-radius: 50%;
+    float: left;
+    height: 40px;
+    margin: -21px 0 0;
+    width: 40px;
+    /*font: bold 15px/13px Helvetica, Verdana, Tahoma;
+    font-weight: bold;*/
+    display: flex; /* or inline-flex */
+    align-items: center; 
+    justify-content: center;
+    color: #343a40;
+    border: 1px solid #343a40;
+}
+
 .popup-messages-footer > textarea {
     border-bottom: 1px solid #b2b2b2 !important;
     height: 34px !important;
@@ -114,9 +131,6 @@ body
     padding: 0 0 0 1px;
     width: 21px;
 }
-
-
-
 
 
 .popup-box .popup-messages {

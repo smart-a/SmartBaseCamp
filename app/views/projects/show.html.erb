@@ -18,14 +18,48 @@
   <dd><%= Date.parse(@project.exp_completion_date.to_s, '%Y-%m-%d') %></dd>
 </dl>
 
+
 <div>
-  <dl>
-    <dt><strong>Project Users:</strong></dt>
-    <dd>
-        
-    </dd>
-  </dl>
+  <div class="d-flex flex-row align-items-center p-2 mb-3">
+    <div class="align-self-center"><strong>Project Users:</strong></div>
+    <div class="align-self-center pl-4">
+      <% if @project_users %>
+        <%= @project_users.each do |p_user| %>
+          <%
+            @contributor = User.find(p_user.id)
+            contributor_init = (@contributor['firstname'][0] + @contributor['lastname'][0]).upcase
+            contributor_name = @contributor['firstname'] + ' ' + @contributor['lastname']
+          %>
+          <%= link_to '#', title:"#{contributor_name}", data:{toggle:"tooltip", placement:"bottom"} do %>
+              <div class="rounded-div mr-2"><%= contributor_init %></div>
+          <% end %>
+        <% end %>
+      <% else %>
+        No contributor
+      <% end %>
+    </div>
+  </div>
+
+  <div class="d-flex flex-row align-items-center p-2">
+    <div class="align-self-center"><strong>Attachments:</strong></div>
+    <div class="align-self-center pl-4">
+      <% if @attachments %>
+        <% @attachments.each do |attachment| %>
+          <%
+            attach_type = attachment.path_url.split('.')[-1].downcase
+            attach_name = attachment.name
+          %>
+          <%= link_to attachment.path_url, title:"#{attach_name}", data:{toggle:"tooltip", placement:"bottom"} do %>
+              <div class="rounded-div mr-2"><%= attach_type %></div>
+          <% end %>
+        <% end %>
+      <% else %>
+        No attachment
+      <% end %>
+    </div>
+  </div>
 </div>
+
 <div class="projects-actions">
   <%= link_to user_projects_path(@user), class: "btn btn-sm btn-warning", 'data-toggle'=>"tooltip", 'data-placement'=>"top", title:"Back to project list" do %>
     <i class="fa fa-arrow-left"></i>
@@ -88,7 +122,7 @@
                 <span class="direct-chat-name pull-left"> <small><strong>Thread by:</strong> <%= user_fullname %></small></span>
               </div>
               <!-- /.direct-chat-info -->
-               <div class="direct-chat-img"><%= user_init %></div>
+              <div class="direct-chat-img"><%= user_init %></div>
               <div class="direct-chat-text">
                 <%= link_to user_project_app_thread_path(@user,@project,thread) do %>
                   <small><%= thread.th_content %></small>
@@ -110,7 +144,7 @@
               </div>
              <!--/.direct-cha
             </div>
-            <!-- /.direct-chat-msg -->
+             /.direct-chat-msg -->
           </div>
         </div>
       </section>
@@ -131,5 +165,3 @@
     <% end %>
   </div>
 </div>
-
-

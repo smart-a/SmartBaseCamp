@@ -1,4 +1,5 @@
 class AttachmentsController < ApplicationController
+  before_action :require_user
   before_action :set_user_project
   before_action :set_session
  
