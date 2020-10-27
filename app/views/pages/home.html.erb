@@ -1,4 +1,14 @@
 <!-- Main jumbotron for a primary marketing message or call to action -->
+
+<% if !notice.nil? %>
+  <div id="notice" class="alert alert-info mt-4 alert-dismissible">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <i class="fa fa-exclamation-triangle"></i> 
+    <strong>Errors</strong>
+    <%= notice %>
+  </div>
+<% end %>
+
     <div class="jumbotron center">
         <h1>SmartBaseCamp Project Management</h1>
     </div>

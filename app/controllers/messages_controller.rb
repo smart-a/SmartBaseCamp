@@ -1,4 +1,7 @@
 class MessagesController < ApplicationController #Users::Projects::AppThreads::ThreadMessages::
+  before_action :require_user
+  before_action :require_same_user
+  
   before_action :set_message, only: [:show, :edit, :update, :destroy]
   before_action :set_user_project
 

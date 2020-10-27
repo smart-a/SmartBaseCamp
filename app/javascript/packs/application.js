@@ -47,6 +47,8 @@ window.$ = window.jQuery = jquery;
 require('packs/thread')
 
 $(function(){
+    $('[data-toggle="tooltip"]').tooltip();
     $('.exp_date').flatpickr();
+    
 });
 

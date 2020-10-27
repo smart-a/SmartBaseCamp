@@ -1,20 +1,17 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   
-  root 'users#home'
   
-
-  get 'users/login'
-  post 'users/signin', to: 'users#signin'
-  get 'users/set_user', to: 'users#set_user'
-  # post 'users/update', to: 'user#update'
-  # get 'users/dashboard'
-  # get 'project', to: 'projects#new'
-
+  
+  get '/' => 'pages#home'
+  get 'login' => 'pages#login'
+  post 'signin' => 'pages#signin'
+  get 'signup' => 'pages#new'
+  get 'logout' => "pages#logout"
   # get '/users/:id/show', to: 'users#show'
   
   get 'users' => "users#new"
-  get 'users/logout' => "users#logout"
+
  
   resources :users, only: [:new, :edit, :create, :show, :update] do 
     resources :projects do
@@ -24,6 +21,8 @@ Rails.application.routes.draw do
       end
     end
   end
+  root 'users#show'
+  
   
   resources :admin
   get 'admin/new_user'
