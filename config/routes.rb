@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   resources :users, only: [:new, :edit, :create, :show, :update] do 
     resources :projects do
       resources :attachments, only: [:index, :new, :create, :destroy]
+      resources :project_users, only: [:index, :create, :destroy]
       resources :app_threads do
         resources :messages
       end
