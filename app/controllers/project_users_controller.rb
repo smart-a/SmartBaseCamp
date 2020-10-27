@@ -1,11 +1,10 @@
 class ProjectUsersController < ApplicationController
-  before_action :set_user_project, only: [:show, :create, :index,:destroy]
+  before_action :set_user_project, only: [:show, :create, :index, :destroy]
   before_action :set_project_user, only: [:destroy]
   before_action :set_session
 
 
   def index 
-    
     @project_user = @project.project_users.new
     @project_users = @project.project_users
   end  
