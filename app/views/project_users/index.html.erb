@@ -34,6 +34,12 @@
 
 
 
+
+
+<h1>Project Members</h1>
+<%= link_to new_user_project_project_user_path, class: 'btn btn-primary float-right mb-2' do %>
+  <i class="fa fa-plus"></i> Add user
+<% end %>
 <table class="table table-sm table-striped">
   <thead class="thead-dark">
     <tr>
@@ -48,15 +54,14 @@
    <tr>
     <% @project_users.each do |project_user| %> 
       <% @contributor = User.find(project_user.user_id) %>
-     
       <tr>
-        <td><%= @contributor[:firstname] %></td>
-        <td><%= @contributor[:lastname] %></td>
-        <td><%= @contributor[:email] %></td>
-        <td>
-          <%= link_to user_project_project_users_path(@user, @project,@project_user), method: :delete, data:{ confirm: 'Are you sure?' },class: 'btn btn-sm btn-danger' do %>
+      <td><%= @contributor[:firstname] %></td>
+      <td><%= @contributor[:lastname] %></td>
+      <td><%= @contributor[:email] %></td>
+      <td>
+     <%= link_to user_project_project_user_url(@user,@project,project_user), method: :delete, data:{ confirm: 'Are you sure?' },class: 'btn btn-sm btn-danger' do %>
               <i class='fa fa-trash'></i>
-          <% end %>
+      <% end %>
         </td>
       </tr>
     <% end %>
