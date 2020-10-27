@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_23_090745) do
+ActiveRecord::Schema.define(version: 2020_11_23_082338) do
 
   create_table "app_threads", force: :cascade do |t|
     t.integer "user_id"
@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 2020_10_23_090745) do
     t.string "msg_content"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["message_id"], name: "index_messages_on_message_id"
   end
 
   create_table "project_users", force: :cascade do |t|
@@ -55,6 +56,13 @@ ActiveRecord::Schema.define(version: 2020_10_23_090745) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "thread_messages", force: :cascade do |t|
+    t.integer "app_thread_id"
+    t.string "tm_content"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "firstname"
     t.string "lastname"
@@ -65,4 +73,5 @@ ActiveRecord::Schema.define(version: 2020_10_23_090745) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "messages", "messages"
 end

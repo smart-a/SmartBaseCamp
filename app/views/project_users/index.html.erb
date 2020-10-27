@@ -21,9 +21,6 @@
 
 
 <%= form_for [@user,@project,@project_user],method: :post do |f| %>
-
-
-
   <div class="input-group mb-3">
       <%= f.text_field :email, type:'email', autofocus: true, class: "form-control ",  placeholder: "Email Address"  %>  
   <div class="input-group-append">
@@ -50,20 +47,16 @@
   <tbody>
    <tr>
     <% @project_users.each do |project_user| %> 
-      <% @users.each do |user| %>
+      <% @contributor = User.find(project_user.user_id) %>
      
-      <% if project_user.user_id==user.id %>
       <tr>
-      <td><%= user[:firstname] %></td>
-      <td><%= user[:lastname] %></td>
-      <td><%= user[:email] %></td>
-     
-      <%end%>
-      <%end%>
-       <td>
-     <%= link_to user_project_project_user_path(@user, @project,@project_user), method: :delete, data:{ confirm: 'Are you sure?' },class: 'btn btn-sm btn-danger' do %>
+        <td><%= @contributor[:firstname] %></td>
+        <td><%= @contributor[:lastname] %></td>
+        <td><%= @contributor[:email] %></td>
+        <td>
+          <%= link_to user_project_project_users_path(@user, @project,@project_user), method: :delete, data:{ confirm: 'Are you sure?' },class: 'btn btn-sm btn-danger' do %>
               <i class='fa fa-trash'></i>
-      <% end %>
+          <% end %>
         </td>
       </tr>
     <% end %>

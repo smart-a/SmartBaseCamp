@@ -8,7 +8,6 @@ class ProjectUsersController < ApplicationController
     
     @project_user = @project.project_users.new
     @project_users = @project.project_users
-    @users=User.all
   end  
 
   # def new
