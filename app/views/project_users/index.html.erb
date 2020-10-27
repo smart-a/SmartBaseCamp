@@ -1,3 +1,4 @@
+
 <% if !notice.nil? %>
   <div id="notice" class="alert alert-info mt-4 alert-dismissible">
     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -5,34 +6,10 @@
   </div>
 <% end %>
 
-<h1> Project Members</h1>
-  <% if @project_user.errors.any? %>
-			<div class="alert alert-danger alert-dismissible fade show mt-2 m-auto" style="width:50%" role="alert">
-				<a href=#  class="close" data-dismiss="alert" aria-label="Close">×</a>
-				<i class="fa fa-exclamation-triangle"></i> 
-				<strong>Errors</strong>
-				<ul>
-					<% @project_user.errors.full_messages.each do |msg| %>
-						<li><%= msg %></li>
-					<% end %>
-				</ul>
-			</div>
-		<% end %> 
-
-<%= form_for [@user,@project,@project_user], method: :post do |f| %>
-  <div class="input-group mb-3 col-4">
-    <%= f.text_field :email, type:'email', autofocus: true, class: "form-control ",  placeholder: "Email Address"  %>  
-    <div class="input-group-append">
-      <%= f.button "Add new member" ,type:'submit', class: "btn btn-primary" do %>
-      <i class="fa fa-plus"></i> Add User
-      <% end %>
-    
-    </div>
- </div>
+<h1>Project Members</h1>
+<%= link_to new_user_project_project_user_path, class: 'btn btn-primary float-right mb-2' do %>
+  <i class="fa fa-plus"></i> Add user
 <% end %>
-
-
-
 <table class="table table-sm table-striped">
   <thead class="thead-dark">
     <tr>
@@ -48,13 +25,13 @@
     <% @project_users.each do |project_user| %> 
       <% @contributor = User.find(project_user.user_id) %>
       <tr>
-        <td><%= @contributor[:firstname] %></td>
-        <td><%= @contributor[:lastname] %></td>
-        <td><%= @contributor[:email] %></td>
-        <td>
-          <%= link_to user_project_project_user_url(@user,@project,project_user), method: :delete, data:{ confirm: 'Are you sure?' },class: 'btn btn-sm btn-danger' do %>
-            <i class='fa fa-trash'></i>
-          <% end %>
+      <td><%= @contributor[:firstname] %></td>
+      <td><%= @contributor[:lastname] %></td>
+      <td><%= @contributor[:email] %></td>
+      <td>
+     <%= link_to user_project_project_user_url(@user,@project,project_user), method: :delete, data:{ confirm: 'Are you sure?' },class: 'btn btn-sm btn-danger' do %>
+              <i class='fa fa-trash'></i>
+      <% end %>
         </td>
       </tr>
     <% end %>

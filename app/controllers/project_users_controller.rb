@@ -5,13 +5,13 @@ class ProjectUsersController < ApplicationController
 
 
   def index 
-    @project_user = @project.project_users.new
+    # @project_user = @project.project_users.new
     @project_users = @project.project_users
   end  
 
-  # def new
-  #   @project_user = @project.project_users.new
-  # end
+  def new
+    @project_user = @project.project_users.new
+  end
   
   def create
     @new_user = User.find_by(email: project_user_params[:email])
