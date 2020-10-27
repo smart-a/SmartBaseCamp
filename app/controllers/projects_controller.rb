@@ -16,7 +16,6 @@ class ProjectsController < ApplicationController
   def show
     # @user = User.find(params[:user_id])
     # @project = @user.projects.find(params[:id])
-    @project_user=ProjectUser.new
     @app_thread = AppThread.new
     @app_threads = @project.app_threads.order('created_at DESC')
     @project_users = @project.project_users

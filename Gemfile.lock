@@ -90,6 +90,7 @@ GEM
     erubi (1.9.0)
     execjs (2.7.0)
     ffi (1.13.1-x64-mingw32)
+    flatpickr (4.6.3.1)
     font-awesome-rails (4.7.0.5)
       railties (>= 3.2, < 6.1)
     globalid (0.4.2)
@@ -222,6 +223,7 @@ DEPENDENCIES
   byebug
   capybara (>= 2.15)
   carrierwave (~> 2.1.0)
+  flatpickr
   font-awesome-rails
   jbuilder (~> 2.7)
   jquery-rails (~> 4.4.0)

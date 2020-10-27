@@ -82,7 +82,7 @@ body
 }
 .popup-box .popup-messages {
 }
-.popup-head-left img {
+.popup-head-left img, .rounded-div {
     border: 1px solid #7b7b7b;
     border-radius: 50%;
     width: 44px;
@@ -249,7 +249,7 @@ body
 
 .popup-messages .doted-border::after {
 	background: transparent none repeat scroll 0 0 !important;
-    border-right: 2px dotted #fff !important;
+    border-right: 2px dotted #3f9684 !important; //#fff
 	bottom: 0;
     content: "";
     left: 17px;
@@ -307,12 +307,22 @@ body
     color: #1f2121;
 }
 .direct-chat-text {
-    background: #d2d6de none repeat scroll 0 0;
-    border: 1px solid #d2d6de;
+    background: #d2d6de none repeat scroll 0 0; //d2d6de
+    border: 1px solid #d2d6de;  //d2d6de
     border-radius: 5px;
     color: #444;
     margin: 5px 0 0 50px;
     padding: 5px 10px;
     position: relative;
     padding-left: 20px;
+}
+
+.over-flow{
+    overflow: hidden;
+    height: auto !important;
+}
+
+.hide{
+    display: none !important;
+    visibility: hidden;
 }

@@ -1,3 +1,11 @@
+import flatpickr from 'flatpickr'
+import 'flatpickr/dist/flatpickr.min.css'
+flatpickr(".datepicker", {
+
+});
+
+
+
 // This file is automatically compiled by Webpack, along with any other files
 // present in this directory. You're encouraged to place your actual application logic in
 // a relevant structure within app/javascript and only use these pack files to reference
@@ -18,23 +26,27 @@ require("channels")
 
 //= require jquery
 //= require jquery_ujs
+//= require rails-ujs
+//= require activestorage
+//= require turbolinks 
 //= require popper
 //= require bootstrap
+//= require flatpickr
+// Locales can be included like so:
+//= require flatpickr/l10n/da
 //= require_tree .
-
-//alert("JS");
-
 //include JQuery framework
-var jQuery = require('jquery')
+
+var jquery = require('jquery')
 
 // include jQuery in global and window scope (so you can access it globally)
 // in your web browser, when you type $('.div'), it is actually refering to global.$('.div')
-global.$ = global.jQuery = jQuery;
-window.$ = window.jQuery = jQuery;
+global.$ = global.jQuery = jquery;
+window.$ = window.jQuery = jquery;
 
-//alert("JS");
+require('packs/thread')
 
-// $(function(){
-//     alert('here');
-//     $('[data-toggle="tooltip"]').tooltip();
-// });
+$(function(){
+    $('.exp_date').flatpickr();
+});
+

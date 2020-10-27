@@ -1,0 +1,15 @@
+//alert('JS');
+
+$(function(){
+    //alert('JQ');
+    //Add message without refreshing the page
+    $('.post-thread').bind('ajax:success',function(){
+        //alert('AJAX call');
+
+        $('#t-form-'+id).toggleClass('hide');
+
+        var id = $(this).attr('data-id');
+        $('#thread-'+id).append("<%= j render 'messages/message_js', locale: @message %>");
+    });
+
+});
