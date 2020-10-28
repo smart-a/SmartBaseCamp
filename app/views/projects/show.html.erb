@@ -5,11 +5,17 @@
   </div>
 <% end %>
 
-<div class="page-header">
+<div class="page-header mb-3">
  <h3><%= @project.title %></h3>
 </div>
 
 <dl>
+  <dt><strong>Project by:</strong></dt>
+  <% 
+    @project_owner = User.find(@project.user_id)
+    owner_name = @project_owner[:firstname] + " " + @project_owner[:lastname]
+  %>
+  <dd><%= owner_name %></dd>
   <dt><strong>Title:</strong></dt>
   <dd><%= @project.title %></dd>
   <dt><strong>Description:</strong></dt>
@@ -18,15 +24,15 @@
   <dd><%= Date.parse(@project.exp_completion_date.to_s, '%Y-%m-%d') %></dd>
 </dl>
 
-
+<!--Project collaborators-->
 <div>
   <div class="d-flex flex-row align-items-center p-2 mb-3">
-    <div class="align-self-center"><strong>Project Users:</strong></div>
+    <div class="align-self-center"><strong>Project Member:</strong></div>
     <div class="align-self-center pl-4">
-      <% if @project_users %>
-        <%= @project_users.each do |p_user| %>
+      <% if @project_users.count > 0 %>
+        <% @project_users.each do |p_user| %>
           <%
-            @contributor = User.find(p_user.id)
+            @contributor = User.find(p_user.user_id)
             contributor_init = (@contributor['firstname'][0] + @contributor['lastname'][0]).upcase
             contributor_name = @contributor['firstname'] + ' ' + @contributor['lastname']
           %>
@@ -40,10 +46,11 @@
     </div>
   </div>
 
+<!--Project Attachment-->
   <div class="d-flex flex-row align-items-center p-2">
     <div class="align-self-center"><strong>Attachments:</strong></div>
     <div class="align-self-center pl-4">
-      <% if @attachments %>
+      <% if @attachments.count > 0 %>
         <% @attachments.each do |attachment| %>
           <%
             attach_type = attachment.path_url.split('.')[-1].downcase
@@ -60,54 +67,50 @@
   </div>
 </div>
 
+<!--Project Link option--><%#= "#{@project.id} - #{params[:id]}" %>
 <div class="projects-actions">
   <%= link_to user_projects_path(@user), class: "btn btn-sm btn-warning", 'data-toggle'=>"tooltip", 'data-placement'=>"top", title:"Back to project list" do %>
     <i class="fa fa-arrow-left"></i>
   <% end %>
-  <%= link_to edit_user_project_path(@user,@project), class: "btn btn-sm btn-primary" do %> 
-    <i class="fa fa-edit"></i>
+
+  <% if @project.user_id.to_s == params[:user_id].to_s %>
+    <%= link_to edit_user_project_path(@user,@project), class: "btn btn-sm btn-primary" do %> 
+      <i class="fa fa-edit"></i>
+    <% end %>
   <% end %>
   <%= link_to  user_project_attachments_path(@user,@project), class: "btn btn-sm btn-secondary" do %> 
     <i class="fa fa-paperclip"></i>
   <% end %>
-<%
-=begin%>
- <% if @user['user_role'] == 'admin' %> 
-<%
-=end%>
-  <%= link_to user_project_project_users_path(@user,@project), class: "btn btn-sm btn-success" do %>
-    <i class="fa fa-user"></i>
-    
+  <% if @project.user_id.to_s == params[:user_id].to_s %>
+    <%= link_to user_project_project_users_path(@user,@project), class: "btn btn-sm btn-success" do %>
+      <i class="fa fa-user"></i>
+    <% end %>
   <% end %>
-  <%
-=begin%>
- <%end%> 
-<%
-=end%>
-
-
 </div>
 
+<!--Add Thread form-->
 <div class="container mt-5">
-  <div class="">
-      <%= form_for [@user, @project, @app_thread], method: :post do |f| %>
-        <div class="input-group col-5">
-          <%= f.text_field :th_content, placeholder:'Add Thread', required:'required', class:'form-control ', size: "7x2" %>
-          <div class="input-group-append">
-              <%= f.button type:'submit', class:'btn btn-outline-secondary align-self-end ' do %>
-                <i class="fa fa-paper-plane"></i>
-              <% end %>
+  <% if @project.user_id == params[:user_id] %>
+    <div class="">
+        <%= form_for [@user, @project, @app_thread], method: :post do |f| %>
+          <div class="input-group col-5">
+            <%= f.text_field :th_content, placeholder:'Add Thread', required:'required', class:'form-control ', size: "7x2" %>
+            <div class="input-group-append">
+                <%= f.button type:'submit', class:'btn btn-outline-secondary align-self-end ' do %>
+                  <i class="fa fa-paper-plane"></i>
+                <% end %>
+            </div>
           </div>
-        </div>
-      <% end %>
-  </div>
+        <% end %>
+    </div>
+  <% end %>
 
   <div class="">
     <% @app_threads.each do |thread| %>
-      <%
+      <%  @th_user =  User.find(thread.user_id)
           t_date = Date.parse(thread.created_at.to_s, '%MMM %dd, %Y')
-          user_init = (@user['firstname'][0] + @user['lastname'][0]).upcase
-          user_fullname = @user['firstname'] + ' ' + @user['lastname']
+          user_init = (@th_user['firstname'][0] + @th_user['lastname'][0]).upcase
+          user_fullname = @th_user['firstname'] + ' ' + @th_user['lastname']
       %>
       <section id='<%= thread.id %>'>
         <%#= link_to thread.th_content, project_app_thread_path(@project,thread.id) %>
@@ -127,17 +130,21 @@
                 <%= link_to user_project_app_thread_path(@user,@project,thread) do %>
                   <small><%= thread.th_content %></small>
                 <% end %>
-                <span class="d-flex pull-right">
-                  <%= link_to user_project_app_thread_path(@user,@project,thread), class:'mr-2' do %>
-                      <i class="fa fa-eye"></i>
-                  <% end %>
-                  <%= link_to edit_user_project_app_thread_path(@user,@project,thread), class:'mr-2' do %>
-                      <i class="fa fa-edit"></i>
-                  <% end %>
-                  <%= link_to user_project_app_thread_path(@user,@project,thread), method: :delete, data:{confirm:'Delete Thread?'} do %>
-                      <i class="fa fa-trash" style='color:red'></i>
-                  <% end %>
-                </span>
+
+                <!--Thread Options-->
+                <% if @th_user == @user %>
+                  <span class="d-flex pull-right">
+                    <%= link_to user_project_app_thread_path(@user,@project,thread), class:'mr-2' do %>
+                        <i class="fa fa-eye"></i>
+                    <% end %>
+                    <%= link_to edit_user_project_app_thread_path(@user,@project,thread), class:'mr-2' do %>
+                        <i class="fa fa-edit"></i>
+                    <% end %>
+                    <%= link_to user_project_app_thread_path(@user,@project,thread), method: :delete, data:{confirm:'Delete Thread?'} do %>
+                        <i class="fa fa-trash" style='color:red'></i>
+                    <% end %>
+                  </span>
+                <% end %>
               </div>
               <div class="direct-chat-info clearfix">
                 <span class="direct-chat-timestamp pull-right"><%= time_ago_in_words(thread.created_at) %></span>
@@ -150,18 +157,27 @@
       </section>
     <% end %>
   </div>
-  <div class="projects-actions m-4">
-    <%= link_to user_projects_path(@user), class: "btn btn-sm btn-warning", 'data-toggle'=>"tooltip", 'data-placement'=>"top", title:"Back to project list" do %>
-      <i class="fa fa-arrow-left"></i>
-    <% end %>
-    <%= link_to edit_user_project_path(@user,@project), class: "btn btn-sm btn-primary" do %> 
-      <i class="fa fa-edit"></i>
-    <% end %>
-    <%= link_to  user_projects_path(@user), class: "btn btn-sm btn-secondary" do %> 
-      <i class="fa fa-paperclip"></i>
-    <% end %>
-    <%= link_to user_projects_path(@user), class: "btn btn-sm btn-success" do %>
-      <i class="fa fa-user"></i>
-    <% end %>
-  </div>
+  
+  <!--Project Link option-->
+  <% if @app_threads.count > 1 %>
+    <div class="projects-actions">
+      <%= link_to user_projects_path(@user), class: "btn btn-sm btn-warning", 'data-toggle'=>"tooltip", 'data-placement'=>"top", title:"Back to project list" do %>
+        <i class="fa fa-arrow-left"></i>
+      <% end %>
+
+      <% if @project.user_id.to_s == params[:user_id].to_s %>
+        <%= link_to edit_user_project_path(@user,@project), class: "btn btn-sm btn-primary" do %> 
+          <i class="fa fa-edit"></i>
+        <% end %>
+      <% end %>
+      <%= link_to  user_project_attachments_path(@user,@project), class: "btn btn-sm btn-secondary" do %> 
+        <i class="fa fa-paperclip"></i>
+      <% end %>
+      <% if @project.user_id.to_s == params[:user_id].to_s %>
+        <%= link_to user_project_project_users_path(@user,@project), class: "btn btn-sm btn-success" do %>
+          <i class="fa fa-user"></i>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
 </div>

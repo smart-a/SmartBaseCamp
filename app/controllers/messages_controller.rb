@@ -2,8 +2,13 @@ class MessagesController < ApplicationController #Users::Projects::AppThreads::T
   before_action :require_user
   before_action :require_same_user
   
-  before_action :set_message, only: [:show, :edit, :update, :destroy]
   before_action :set_user_project
+  before_action :set_message, only: [:show, :edit, :update, :destroy]
+
+  before_action only: [:edit, :update, :destroy] do
+    require_thread_owner(@message)
+  end
+ 
 
   # GET /messages
   # GET /messages.json
@@ -48,10 +53,10 @@ class MessagesController < ApplicationController #Users::Projects::AppThreads::T
   def update
     respond_to do |format|
       if @message.update(message_params)
-        format.html { redirect_to @message, notice: 'Message was successfully updated.' }
+        format.html { redirect_to user_project_app_thread_url(@user,@project,@app_thread), notice: 'Message was successfully updated.' }
         format.json { render :show, status: :ok, location: @message }
       else
-        format.html { render :edit }
+        format.html { redirect_to user_project_app_thread_url(@user,@project,@app_thread), notice: @message.errors.full_messages.inspect }
         format.json { render json: @message.errors, status: :unprocessable_entity }
       end
     end
@@ -62,7 +67,7 @@ class MessagesController < ApplicationController #Users::Projects::AppThreads::T
   def destroy
     @message.destroy
     respond_to do |format|
-      format.html { redirect_to [@user,@project,@app_thread], notice: 'Message was successfully destroyed.' }
+      format.html { redirect_to user_project_app_thread_url(@user,@project,@app_thread), notice: 'Message was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -70,13 +75,13 @@ class MessagesController < ApplicationController #Users::Projects::AppThreads::T
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_message
-      @message =Message.find(params[:id])
+      @message = @app_thread.messages.find(params[:id])
     end
 
     # Use callbacks to share common setup or constraints between actions.
     def set_user_project
       @user = User.find(params[:user_id])
-      @project = @user.projects.find(params[:project_id])
+      @project = Project.find(params[:project_id])
       @app_thread = @project.app_threads.find(params[:app_thread_id])
     end
 

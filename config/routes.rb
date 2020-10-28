@@ -14,19 +14,20 @@ Rails.application.routes.draw do
 
  
   resources :users, only: [:new, :edit, :create, :show, :update] do 
+    resources :admin
+    get 'admin/new_user'
     resources :projects do
-      resources :attachments, only: [:index, :new, :create, :destroy]
-      resources :project_users, only: [:index, :new, :create, :destroy]
-      resources :app_threads do
-        resources :messages
+      resources :attachments, only: [:index, :create, :destroy]
+      resources :project_users, only: [:index, :create, :destroy]
+      resources :app_threads, except: [:index, :new] do
+        resources :messages, except: [:index, :new]
       end
     end
   end
   root 'users#show'
   
   
-  resources :admin
-  get 'admin/new_user'
+  
   
 
 end

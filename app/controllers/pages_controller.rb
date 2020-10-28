@@ -20,7 +20,7 @@ class PagesController < ApplicationController
       @user_login = User.find_by(email: email, password: password) #where(email: email, password: password)
   
       respond_to do |format|
-        if !@user_login.nil?
+        if @user_login
           session['user_id'] = @user_login[:id]
           format.html { redirect_to user_projects_path(@user_login[:id]) }
           format.json { render :show, status: :ok, location: @user_login }
@@ -31,6 +31,20 @@ class PagesController < ApplicationController
       end
   
     end
+
+    # def create
+    #   @user = User.new(user_params)
+  
+    #   respond_to do |format|
+    #     if @user.save
+    #       format.html { redirect_to :users_login, flash[:notice] => 'User was successfully created.' }
+    #       format.json { render :show, status: :created, location: @user }
+    #     else
+    #       format.html { render action:'new' }
+    #       format.json { render json: @user.errors, status: :unprocessable_entity }
+    #     end
+    #   end
+    # end
   
     def logout
       session['user_id'] = nil

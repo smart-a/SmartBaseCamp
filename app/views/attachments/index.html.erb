@@ -7,7 +7,10 @@
 <% end %>
 
 <br />
-
+<h1>Project Attachement</h1>
+<%= link_to [@user,@project], class: "btn btn-sm btn-secondary mb-3 mt-2", 'data-toggle'=>"tooltip", 'data-placement'=>"top", title:"Back to project list" do %>
+   <i class="fa fa-arrow-left"></i>
+<% end %>
 <%#= link_to "New Attachment", new_user_project_attachment_path, class: "btn btn-primary" %>
 <div class = "mb-3">
    <%= form_for @attachment, url: {action: 'create'}, html:{multipart: true, class:'form-inline' } do |f| %>
@@ -47,7 +50,5 @@
    </tbody>
    
 </table>
-<%= link_to [@user,@project], class: "btn btn-sm btn-warning", 'data-toggle'=>"tooltip", 'data-placement'=>"top", title:"Back to project list" do %>
-   <i class="fa fa-arrow-left"></i>
-<% end %>
+
 

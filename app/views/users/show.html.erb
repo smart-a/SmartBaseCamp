@@ -11,11 +11,13 @@
   <dt><strong>Firstname:</strong></dt>
   <dd><%= @user.firstname %></dd>
   <dt><strong>Lastname:</strong></dt>
-  <dd><%= @user.lastname %></dd>
+  <dd><%= (@user.lastname.nil?)? @user.lastname : 'Administrator' %></dd>
   <dt><strong>Email Address:</strong></dt>
-  <dd><%=@user.email %></dd>
+  <dd><%= @user.email %></dd>
   <dt><strong>Project:</strong></dt>
   <dd>You have <%= pluralize(@project.count, "project") %> </dd>
+  <dt><strong>Collaboration Project:</strong></dt>
+  <dd>You have <%= pluralize(@project_user.count, "project") %> </dd>
 </dl>
 
 <%= link_to user_projects_path(@user) , class: "btn btn-sm btn-secondary" do %>

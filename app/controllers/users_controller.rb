@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_action :require_user
-  before_action :require_same_user
+  before_action :require_user, except: [:create]
+  before_action :require_same_user, except: [:create]
   
   # before_action :require_same_user, only: [:show, :edit, :update]
   before_action :set_user, only: [:show, :edit, :update, :destroy]
@@ -15,6 +15,7 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @project = @user.projects
+    @project_user = @user.project_users
   end
 
   # GET /users/new
@@ -33,10 +34,10 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to :users_login, flash[:notice] => 'User was successfully created.' }
+        format.html { redirect_to :login, notice: 'You have successfully create an account, Please login to continue.' }
         format.json { render :show, status: :created, location: @user }
       else
-        format.html { render action:'new' }
+        format.html { redirect_to :login, notice: @user.errors.full_messages.inspect }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end

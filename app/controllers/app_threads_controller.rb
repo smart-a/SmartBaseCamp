@@ -5,6 +5,10 @@ class  AppThreadsController < ApplicationController
   before_action :set_user_project
   before_action :set_app_thread, only: [:show, :edit, :update, :destroy]
 
+  before_action only: [:edit, :update, :destroy] do
+    require_thread_owner(@thread)
+  end
+
   # GET /app_threads
   # GET /app_threads.json
   def index
@@ -77,7 +81,7 @@ class  AppThreadsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_user_project
       @user = User.find(params[:user_id])
-      @project = @user.projects.find(params[:project_id])
+      @project = Project.find(params[:project_id])
     end
 
     # Only allow a list of trusted parameters through.

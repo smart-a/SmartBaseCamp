@@ -1,8 +1,14 @@
 class ProjectsController < ApplicationController
   before_action :require_user
   before_action :require_same_user
-
   before_action :set_project, only: [:show, :edit, :update, :destroy]
+  # before_action only: [:edit, :update, :destroy] do
+  #   require_project_owner(@project)
+  # end
+  before_action only: [:show] do
+    require_project_member(@project,@project_user)
+  end
+  
 
   require 'date'
 
@@ -11,16 +17,15 @@ class ProjectsController < ApplicationController
   def index
     @user = User.find(params[:user_id])
     @projects = @user.projects.order('created_at DESC')
-    # @join_projects = ProjectUser.find(@user[:id]).projects.order('created_at DESC')
+    @join_projects = @user.project_users.order('created_at DESC')
   end
 
   # GET /projects/1
   # GET /projects/1.json
   def show
-    # @user = User.find(params[:user_id])
     @app_thread = AppThread.new
     @app_threads = @project.app_threads.order('created_at DESC')
-    # @project_users = @project.project_users
+    @project_users = @project.project_users.order('created_at DESC')
     @attachments = @project.attachments
   end
 
@@ -32,8 +37,6 @@ class ProjectsController < ApplicationController
  
   # GET /projects/1/edit
   def edit
-    # @user = User.find(params[:user_id])
-    # @project = @user.projects.find(params[:id])
   end
 
   # POST /projects
@@ -56,9 +59,6 @@ class ProjectsController < ApplicationController
   # PATCH/PUT /projects/1
   # PATCH/PUT /projects/1.json
   def update
-    # @user = User.find(params[:user_id])
-    # @project = @user.projects.find(params[:id])
-
     respond_to do |format|
       if @project.update(project_params)
         format.html { redirect_to [@user,@project], notice: 'Project was successfully updated.' }
@@ -84,7 +84,8 @@ class ProjectsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_project
       @user = User.find(params[:user_id])
-      @project = @user.projects.find(params[:id])
+      @project = Project.find(params[:id])
+      @project_user = @project.project_users.find_by(user_id: params[:user_id])
     end
 
     # Only allow a list of trusted parameters through.

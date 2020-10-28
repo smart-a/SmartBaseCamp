@@ -4,34 +4,36 @@
     <div class="mt-1">
       <%= form_with(model: @user, local: true) do |f| %>
         
-        <div class="input-group mb-3">
-          <div class="input-group-append">
-            <span class="input-group-text"><i class="fa fa-user"></i></span>
+        <div class="form-group row mb-3">
+          <%= f.label :firstname, class: "col-sm-3 col-form-label" %>
+          <div class="col-sm-9">
+            <%= f.text_field :firstname, autofocus: true, class: "form-control",  placeholder: "Firstname" %>
           </div>
-          <%= f.text_field :firstname, autofocus: true, class: "form-control",  placeholder: "Firstname" %>
         </div>
-        <div class="input-group mb-3">
-          <div class="input-group-append">
-            <span class="input-group-text"><i class="fa fa-user"></i></span>
+        <div class="form-group row mb-3">
+          <%= f.label :lastname, class: "col-sm-3 col-form-label"  %>
+          <div class="col-sm-9">
+            <%= f.text_field :lastname, autofocus: true, class: "form-control",  placeholder: "Lastname"  %>
           </div>
-          <%= f.text_field :lastname, autofocus: true, class: "form-control",  placeholder: "Lastname"  %>
         </div>	   
-        <div class="input-group mb-3">
-          <div class="input-group-append">
-            <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+        <div class="form-group row mb-3">
+          <%= f.label :email, class: "col-sm-3 col-form-label"  %>
+          <div class="col-sm-9">
+            <%= f.text_field :email, type:'email', autofocus: true, class: "form-control ", readonly:'readonly' %>
           </div>
-          <%= f.text_field :email, type:'email', autofocus: true, class: "form-control ", readonly:'readonly' %>
         </div>
 
-        <div class="input-group mb-3">
-          <div class="input-group-append">
-            <span class="input-group-text"><i class="fa fa-key"></i></span>
+        <div class="form-group row mb-3">
+          <%= f.label :password, class: "col-sm-3 col-form-label"  %>
+          <div class="col-sm-9">
+            <%= f.password_field :password, autofocus: true, class: "form-control",  placeholder: "Password"  %>
           </div>
-          <%= f.password_field :password, autofocus: true, class: "form-control",  placeholder: "Password"  %>
         </div>
         
-        <div class="d-flex justify-content-center mt-3 login_container">
-          <%= f.submit "Update", class: "btn login_btn"  %>
+        <div class="form-group row mb-3">
+          <div class="col-sm-5 login_container">
+            <%= f.submit "Update", class: "btn login_btn"  %>
+          </div>
         </div>
       <% end %>
     </div>

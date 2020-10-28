@@ -1,6 +1,7 @@
-<h1>Editing Message</h1>
+<h1>Edit Message</h1>
 
-<%= render 'form', message: @message %>
+<%= render 'form', message: [@user,@project,@app_thread,@message] %>
 
-<%= link_to 'Show', @message %> |
-<%= link_to 'Back', messages_path %>
+<%= link_to user_project_app_thread_url(@user,@project,@app_thread), class: "btn btn-sm btn-secondary mt-3", 'data-toggle'=>"tooltip", 'data-placement'=>"top", title:"Back to Message list" do %>
+    <i class="fa fa-arrow-left"></i>
+<% end %>

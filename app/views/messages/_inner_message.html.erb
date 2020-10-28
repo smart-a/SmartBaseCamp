@@ -37,15 +37,16 @@
                             <!--Message button option -->
                             <span class="pull-right ml-2">
                                 <%= link_to '#', remote: :true, class:'reply-btn mr-2' do %>
-                                <i class="fa fa-reply"></i>
+                                    <i class="fa fa-reply"></i>
                                 <% end %>
-                                <% if @thread_user==@user %>
-                                <%= link_to [@user,@project,@app_thread,msgs], class:'mr-2' do %>
-                                    <i class="fa fa-edit"></i>
-                                <% end %>
-                                <%= link_to [@user,@project,@app_thread,msgs], method: :delete, data:{confirm:'Delete Message?'} do %>
-                                    <i class="fa fa-trash" style='color:red'></i>
-                                <% end %>
+
+                                <% if @msg_user==@user %>
+                                    <%= link_to edit_user_project_app_thread_message_path(@user,@project,@app_thread,msgs), class:'mr-2' do %>
+                                        <i class="fa fa-edit"></i>
+                                    <% end %>
+                                    <%= link_to user_project_app_thread_message_path(@user,@project,@app_thread,msgs), method: :delete, data:{confirm:'Delete Message?'} do %>
+                                        <i class="fa fa-trash" style='color:red'></i>
+                                    <% end %>
                                 <% end %>
                             </span>
                             

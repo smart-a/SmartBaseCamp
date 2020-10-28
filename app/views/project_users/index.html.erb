@@ -6,11 +6,24 @@
   </div>
 <% end %>
 
-<h1>Project Members</h1>
-<%= link_to new_user_project_project_user_path, class: 'btn btn-primary float-right mb-2' do %>
-  <i class="fa fa-plus"></i> Add user
+<h1>Project Collaborators</h1>
+<%= link_to [@user,@project], class: "btn btn-sm btn-secondary mt-3", 'data-toggle'=>"tooltip", 'data-placement'=>"top", title:"Back to project list" do %>
+   <i class="fa fa-arrow-left"></i>
 <% end %>
-<table class="table table-sm table-striped">
+<div class="form_container col-4" style="margin-top: 50px">
+  <%= form_for [@user,@project,@project_user], method: :post do |f| %>
+    <div class="input-group mb-3">
+      <%= f.text_field :email, type:'email', autofocus: true, class: "form-control form-control-sm",  placeholder: "Email Address"  %>
+      <div class="input-group-append">
+        <%= f.button type:'submit', class: "btn btn-sm btn-secondary" do %>
+          <i class="fa fa-plus"></i> New User
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<table class="table table-sm table-striped col-8">
   <thead class="thead-dark">
     <tr>
       <th>Firstname</th>
@@ -23,6 +36,7 @@
   <tbody>
    <tr>
     <% @project_users.each do |project_user| %> 
+    <%#= project_user.id %>
       <% @contributor = User.find(project_user.user_id) %>
       <tr>
       <td><%= @contributor[:firstname] %></td>

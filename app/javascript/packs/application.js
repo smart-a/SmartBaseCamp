@@ -44,7 +44,7 @@ var jquery = require('jquery')
 global.$ = global.jQuery = jquery;
 window.$ = window.jQuery = jquery;
 
-require('packs/thread')
+// require('packs/thread')
 
 $(function(){
     $('[data-toggle="tooltip"]').tooltip();

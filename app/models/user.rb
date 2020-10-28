@@ -7,7 +7,7 @@ class User < ApplicationRecord
     validates_presence_of(:firstname)
     validates :firstname, length: {minimum: 5}
     validates_presence_of(:lastname)
-    validates_presence_of(:email)
+    validates :email, presence: true, uniqueness: true
     validates_presence_of(:password)
     before_save { self.email = email.downcase }
     

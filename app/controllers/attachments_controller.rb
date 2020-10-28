@@ -16,7 +16,7 @@ class AttachmentsController < ApplicationController
   def create
     @attachment = @project.attachments.new(attach_params)
     if @attachment.save
-      redirect_to user_project_attachments_path, notice: "The attachment #{@attachment.name} has been uploaded."
+      redirect_to user_project_attachments_path, notice: "The attachment '#{@attachment.name}' has been uploaded."
    else
       redirect_to user_project_attachments_path, notice: @attachment.errors.full_messages
    end
@@ -26,7 +26,7 @@ class AttachmentsController < ApplicationController
     @attachment = @project.attachments.find(params[:id])
     @attachment.destroy
     respond_to do |format|
-      format.html { redirect_to user_project_attachments_path, notice:  "The attachment #{@attachment.name} has been deleted."  }
+      format.html { redirect_to user_project_attachments_path, notice:  "The attachment '#{@attachment.name}' has been deleted."  }
     end
     
     
@@ -41,7 +41,7 @@ class AttachmentsController < ApplicationController
   #  Use callbacks to share common setup or constraints between actions.
   def set_user_project
     @user = User.find(params[:user_id])
-    @project = @user.projects.find(params[:project_id])
+    @project = Project.find(params[:project_id])
   end
 
   # Set session
