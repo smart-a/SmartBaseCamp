@@ -22,4 +22,4 @@ test:
 
 production:
   <<: *default
-  database: basecamp_production
+  # database: basecamp_production
