@@ -90,7 +90,7 @@
 
 <!--Add Thread form-->
 <div class="container mt-5">
-  <% if @project.user_id == params[:user_id] %>
+  <% if @project.user_id.to_s == params[:user_id].to_s %>
     <div class="">
         <%= form_for [@user, @project, @app_thread], method: :post do |f| %>
           <div class="input-group col-5">
