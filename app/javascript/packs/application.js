@@ -35,8 +35,9 @@ require("channels")
 // Locales can be included like so:
 //= require flatpickr/l10n/da
 //= require_tree .
-//include JQuery framework
 
+
+//include JQuery framework
 var jquery = require('jquery')
 
 // include jQuery in global and window scope (so you can access it globally)

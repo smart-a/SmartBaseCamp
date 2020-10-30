@@ -6,6 +6,7 @@ gem 'bootstrap', '~> 4.5.2'
 gem 'carrierwave', '~> 2.1.0'
 gem 'font-awesome-rails'
 gem 'flatpickr'
+# gem "bootstrap-sass"
 
 #  ruby '2.7.1'
  ruby '2.6.6'

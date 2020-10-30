@@ -6,7 +6,7 @@ class  AppThreadsController < ApplicationController
   before_action :set_app_thread, only: [:show, :edit, :update, :destroy]
 
   before_action only: [:edit, :update, :destroy] do
-    require_thread_owner(@thread)
+    require_thread_owner(@app_thread)
   end
 
   # GET /app_threads
