@@ -13,7 +13,7 @@
 <div class="form_container col-4" style="margin-top: 50px">
   <%= form_for [@user,@project,@project_user], method: :post do |f| %>
     <div class="input-group mb-3">
-      <%= f.text_field :email, type:'email', autofocus: true, class: "form-control form-control-sm",  placeholder: "Email Address"  %>
+      <%= f.text_field :email, type:'email', autofocus: true, class: "form-control form-control-sm", placeholder: "Email Address", required:'required' %>
       <div class="input-group-append">
         <%= f.button type:'submit', class: "btn btn-sm btn-secondary" do %>
           <i class="fa fa-plus"></i> New User
