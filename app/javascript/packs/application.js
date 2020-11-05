@@ -26,7 +26,6 @@ require("channels")
 
 //= require jquery
 //= require jquery_ujs
-//= require rails-ujs
 //= require activestorage
 //= require turbolinks 
 //= require popper
@@ -47,6 +46,7 @@ window.$ = window.jQuery = jquery;
 
 // require('packs/thread')
 
+require('boostrap')
 $(function(){
     $('[data-toggle="tooltip"]').tooltip();
     $('.exp_date').flatpickr();
