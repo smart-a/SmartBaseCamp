@@ -46,7 +46,7 @@ window.$ = window.jQuery = jquery;
 
 // require('packs/thread')
 
-require('boostrap')
+//require('boostrap')
 $(function(){
     $('[data-toggle="tooltip"]').tooltip();
     $('.exp_date').flatpickr();
