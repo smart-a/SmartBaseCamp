@@ -1,5 +1,6 @@
 class CreateMessages < ActiveRecord::Migration[6.0]
   def change
+    # drop_table :messages
     create_table :messages do |t|
       t.integer :user_id
       t.integer :app_thread_id

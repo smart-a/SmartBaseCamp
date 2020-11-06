@@ -35,14 +35,15 @@ ActiveRecord::Schema.define(version: 2020_11_05_113406) do
     t.string "msg_content"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["message_id"], name: "index_messages_on_message_id"
   end
 
   create_table "project_users", force: :cascade do |t|
     t.integer "project_id"
     t.integer "user_id"
+    t.string "email"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "email"
   end
 
   create_table "projects", force: :cascade do |t|
@@ -75,5 +76,6 @@ ActiveRecord::Schema.define(version: 2020_11_05_113406) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "messages", "messages"
   add_foreign_key "tasks", "projects"
 end
