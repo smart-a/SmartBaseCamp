@@ -26,6 +26,7 @@ require("channels")
 
 //= require jquery
 //= require jquery_ujs
+//= require rails-ujs
 //= require activestorage
 //= require turbolinks 
 //= require popper
@@ -34,6 +35,7 @@ require("channels")
 // Locales can be included like so:
 //= require flatpickr/l10n/da
 //= require_tree .
+//include JQuery framework
 
 
 //include JQuery framework
