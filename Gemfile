@@ -8,8 +8,8 @@ gem 'font-awesome-rails'
 gem 'flatpickr'
 # gem "bootstrap-sass"
 
-#  ruby '2.7.1'
- ruby '2.6.6'
+  ruby '2.7.1'
+#  ruby '2.6.6'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.3', '>= 6.0.3.4'
@@ -30,7 +30,7 @@ gem 'jbuilder', '~> 2.7'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
-
+gem 'nested_scaffold'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
 

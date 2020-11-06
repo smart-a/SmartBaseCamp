@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     resources :admin
     get 'admin/new_user'
     resources :projects do
+      resources :tasks
       resources :attachments, only: [:index, :create, :destroy]
       resources :project_users, only: [:index, :create, :destroy]
       resources :app_threads, except: [:index, :new] do
